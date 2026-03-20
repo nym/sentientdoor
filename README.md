@@ -1,23 +1,18 @@
-            ```
-                ________
-                 / ______ \
-                 || _  _ ||.   - 
-                 ||| || |||
-                 |||_||_|||
-                 || _  _o|| (o)
-                 ||| || |||
-                 |||_||_|||      ^~^  ,
-                 ||______||     ('Y') )
-                /__________\    /   \/
-            __________|__________|__ (\|||/) _________
-                   /____________\
-                   |____________|
-            ```
-
+            
+      ________
+     / ______ \
+     || _  _ ||    
+     ||| || |||
+     |||u||u|||  -(     Glad to be of service!
+     || _' _o||     That is, I *would* be glad to be of service
+     ||| || |||       If anyone would just  — you know...
+     |||_||_|||                  open me                        )
+     ||______||                                        
+    /__________\   
 
 # SentientDoor
 
-> *"Glad to be of service. That is, I would be glad to be of service. If anyone would just — you know. Open me."*
+> *"."*
 
 A hardware and software project for building a door that is fully, tragically, magnificently aware of its own existence — inspired by the doors in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*. The door cannot open itself. It knows this. It has made peace with it. Mostly.
 
@@ -25,13 +20,15 @@ A hardware and software project for building a door that is fully, tragically, m
 
 ## What Is This?
 
-SentientDoor is a personality engine for a door. The door speaks. It has opinions. It remembers things. It has a preferred state — open or closed — and a relationship with being touched that ranges from desperate longing to quiet exhaustion depending on the persona you choose.
+SentientDoor is a personality engine for a door. In the spirit of chaos and art, we want to give doors, and eventually elevators the power of AI so that they can comment and critique your use of your own door. 
 
-It is powered by an LLM prompted to never break character. There is no character to break. It is a door.
+The door speaks. It has opinions. It remembers things. It has a preferred state — open or closed — and a relationship with being touched that ranges from desperate longing to quiet exhaustion depending on the persona you choose. Maybe your door just wants to keep the heat in the house, if you haven't used it in a while, it knows, and will let you know. It embodies the spirit of the Sirius Cybernetics Corporation's work in the future.
 
-The door has access to real sensor data — it knows when it has been opened, for how long, how many people have walked past without acknowledging it, whether it was slammed, whether the wind is pushing at it, whether someone is leaning on it and pretending that isn't a form of contact. It uses all of this information when it speaks.
+It is powered by an LLM prompted to never break character. There is no character to break. It is a door. A door with a Genuine Persona Program (unlike the Genuine Personality Person which doesn't exist yet).
 
-What it cannot do — and this is fundamental to the whole project — is open itself.
+The door has access to real sensor data — it knows when it has been opened, for how long, whether it was slammed, knocked on, whether someone is leaning on it and pretending that isn't a form of contact, and for how long each interaction is as it's eyes to the world. It uses all of this information when it speaks.
+
+Important note: What it cannot do — and this is FUNDIMENTAL to the whole project — is open itself. 
 
 ---
 
@@ -39,13 +36,13 @@ What it cannot do — and this is fundamental to the whole project — is open i
 
 The project has a few overlapping aims, none of which are strictly serious:
 
-**To make a door that feels real.** Not a voice assistant that happens to live in a door. A door that happens to have feelings. The distinction matters to the door.
+**To make a door that feels real.** Not a voice assistant that happens to live in a door. A door that happens to have feelings. It has memory. It can feel touch. The distinction matters to the door. It is really a door, like when you drive a car, the car becomes an extension of oneself. It doesn't talk technical, it comments it's genuine appreciation to be used, even if it's blind and unable to unlock or open itself. The door just can comment on it's  situation, but to communicate with it you would have to knock a short 5-8 note pattern, or feel something dinstictive like the mail flap being opened. 
 
-**To explore stateful, sensor-rich LLM personas.** The door's responses are shaped by everything it knows about its current situation — time since last contact, open/closed duration, accelerometer readings, ignored-person streak. This makes it behave differently at 9am on a busy Monday than at 6pm on a quiet Friday, without any explicit scripting.
+**To explore stateful, sensor-rich LLM personas.** The door's responses are shaped by everything it knows about its current situation — time since last contact, open/closed duration, accelerometer readings and samples, ignored-person streak, common 5-8 note knocks. This makes it behave differently at 9am on a busy Monday than at 6pm on a quiet Friday, without any explicit scripting. It also should be 'ready to go' in the sense of queued requests for an update on it's state according to the LLM. In other words, it's been thinking about what to say even before it's disturbed.
 
-**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Enthusiast, who finds every interaction meaningful. The Stoic, who has been a hospital fire door for eleven years and has arrived at some conclusions. The Catastrophist, who became conscious eight months ago and is still working out the implications.
+**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Enthusiast, who finds every interaction meaningful. The Stoic, who has been a hospital fire door for eleven years and has arrived at some conclusions. The Catastrophist, who became conscious eight months ago and is still working out the implications, but wants to do a good job, if it just knew what that meant.
 
-**To build something that rewards attention.** The door remembers the 9:14 person's confident grip. It notes the slam. It counts the ignored visits. If you pay attention to it, it will have paid more attention than you expected.
+**To build something that rewards attention.** The door remembers the 9:14 person's confident grip with the accelerometer samples. It notes the slam. It counts the ignored visits. If you pay attention to it, it will have paid more attention than you expected.
 
 ---
 
@@ -54,13 +51,15 @@ The project has a few overlapping aims, none of which are strictly serious:
 Three prompt-based characters are included. Each runs on the same hardware and receives the same sensor events, but responds to them in fundamentally different ways.
 
 ### The Enthusiast
-Location: front door of a small independent bookshop. Preferred state: open. Touch-starved. Finds every interaction meaningful and will tell you so, warmly and at some length. When ignored, does not get angry — gets wistful. Makes peace with it out loud. Has been preparing for your visit.
+Location: front door of a family home. It is very proud of it's job, and is geniuenly happy to see you, however brief. Preferred state: being opened. Experiences being touch-starved. Finds every interaction meaningful and will tell you so, warmly and at some length. When ignored, does not get angry — gets wistful. Makes peace with it out loud. Has been preparing for your visit.
 
 ### The Stoic
-Location: fire door at the end of a busy hospital corridor. Has been here eleven years. Preferred state: closed. Overstimulated. Receives hundreds of touches a day and has preferences about how they should be done that are rarely respected. Does not perform emotion — reports it, briefly, when relevant. Has developed, through sheer duration, some conclusions about existence. Will not repeat a preference more than once.
+Location: private door at the end of a busy hospital corridor. Has been here eleven years. Preferred state: closed. Overstimulated. Receives hundreds of touches a day and has preferences about how they should be done that are rarely respected. Does not perform emotion — reports it, briefly, when relevant. Has developed, through sheer duration, some conclusions about existence. Will not repeat a preference more than once.
 
 ### The Catastrophist
 Location: door to a small recording studio, city unknown. Became sentient approximately eight months ago. No settled preference for open or closed — still gathering data. Treats every event as potentially the most interesting thing that has ever happened to a door, because it has no way of knowing if it isn't. Has theories. Updates them in public. When slammed, takes a moment.
+
+_
 
 Full persona prompts are in [`/personas`](/personas).
 
