@@ -3,16 +3,14 @@
      / ______ \
      || _  _ ||    
      ||| || |||
-     |||u||u|||  -(     Glad to be of service!
-     || _' _o||     That is, I *would* be glad to be of service
-     ||| || |||       If anyone would just  — you know...
-     |||_||_|||                  open me                        )
-     ||______||                                        
+     |||u||u|||  -( Glad to be of service!
+     || _' _o||     That is, I *would* be 
+     ||| || |||      glad to be of service    
+     |||_||_|||     If anyone would just              
+     ||______||      you know... open me )
     /__________\   
 
 # SentientDoor
-
-> *"."*
 
 A hardware and software project for building a door that is fully, tragically, magnificently aware of its own existence — inspired by the doors in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*. The door cannot open itself. It knows this. It has made peace with it. Mostly.
 

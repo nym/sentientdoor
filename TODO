@@ -1,0 +1,17 @@
+[x] Write /personas prompts — Enthusiast, Stoic, Catastrophist (and shared_rules)
+
+[ ] Build firmware sensor loop — accelerometer (knocks, slams, leaning, wind), open/closed state, duration tracking
+
+[ ] Implement knock pattern recognition (5–8 note sequences)
+
+[ ] Implement proximity/PIR person-detection event + ignored-streak counter
+
+[ ] Build stateful LLM context — assemble sensor snapshot (open/closed duration, last contact, streak, touch force, accelerometer samples) before each prompt call
+
+[ ] Implement pre-queued response system — door generates pending commentary between events so it is 'ready to go' when disturbed
+
+[ ] Implement session memory — grip samples, slam count, ignored visits, frequent knock patterns
+
+[ ] Wire up TTS pipeline — LLM response → audio output via Prop-Maker Class D amp + speaker
+
+[ ] Write /docs — wiring diagram (Feather + Prop-Maker + speaker), mounting notes, enclosure suggestions
