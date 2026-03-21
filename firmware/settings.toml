@@ -1,0 +1,33 @@
+# Copy this file to the root of your CIRCUITPY drive as settings.toml
+# Never commit this file with real credentials.
+
+WIFI_SSID = "your-network"
+WIFI_PASSWORD = "your-password"
+
+ANTHROPIC_API_KEY = "sk-ant-..."
+ELEVENLABS_API_KEY = "..."
+
+# Persona: "enthusiast" | "stoic" | "catastrophist"
+PERSONA = "enthusiast"
+
+# ElevenLabs voice ID for each persona — replace with your chosen voices
+VOICE_ID_ENTHUSIAST = ""
+VOICE_ID_STOIC = ""
+VOICE_ID_CATASTROPHIST = ""
+
+# GPIO pins — adjust if your wiring differs
+PIN_REED_SWITCH = "D6"     # Magnetic reed switch: LOW = closed, HIGH = open
+PIN_PIR = "D9"             # PIR / proximity sensor: HIGH = person detected
+PIN_POWER_ENABLE = "A0"    # Prop-Maker FeatherWing power enable
+
+# Thresholds
+SLAM_THRESHOLD_G = 3.5         # Accelerometer magnitude (g) to classify as slam
+KNOCK_THRESHOLD_G = 1.2        # Minimum magnitude to register a knock
+LEAN_THRESHOLD_G = 0.35        # Sustained off-axis tilt to classify as lean
+LEAN_DURATION_S = 4.0          # Seconds of sustained tilt before firing lean event
+KNOCK_WINDOW_MS = 800          # Max gap between notes in a knock pattern (ms)
+KNOCK_PATTERN_MIN = 5          # Minimum notes to constitute a pattern knock
+KNOCK_PATTERN_MAX = 8          # Maximum notes in a pattern knock
+
+# Pre-queue: how often the door updates its queued thought (seconds)
+PREQUEUE_INTERVAL_S = 300      # 5 minutes
