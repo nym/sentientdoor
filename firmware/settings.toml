@@ -45,3 +45,14 @@ KNOCK_PATTERN_MAX = 8          # Maximum notes in a pattern knock
 
 # Pre-queue: how often the door updates its queued thought (seconds)
 PREQUEUE_INTERVAL_S = 300      # 5 minutes
+
+# NeoPixel RGB strip — Prop-Maker FeatherWing routes NeoPixel data to D5
+PIN_NEOPIXEL   = "D5"          # NeoPixel data pin
+NEOPIXEL_COUNT = 30            # number of pixels on your strip
+
+# Servo mouth (optional — leave SERVO_PIN blank to disable)
+# Connect servo signal wire to any PWM-capable pin, e.g. "A3"
+SERVO_PIN        = ""          # leave blank to disable
+SERVO_OPEN_DEG   = 30          # degrees open while speaking
+SERVO_CLOSED_DEG = 0           # degrees closed (rest position)
+SERVO_RATE_HZ    = 3           # open/close cycles per second

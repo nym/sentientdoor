@@ -91,9 +91,10 @@ class TTSPlayer:
 
     # ── Public interface ──────────────────────────────────────────────────────
 
-    def speak(self, text, sensor_manager=None, event_queue=None):
+    def speak(self, text, sensor_manager=None, event_queue=None, lights=None):
         """
-        Synthesise `text` and play it. Sensors are polled during playback.
+        Synthesise `text` and play it. Sensors and LED animations are updated
+        during playback so neither blocks the other.
         Returns True on success, False on any error.
         """
         if not text or not self._voice_id:
@@ -107,7 +108,7 @@ class TTSPlayer:
         if not self._fetch_to_file(text):
             return False
 
-        self._play(sensor_manager, event_queue)
+        self._play(sensor_manager, event_queue, lights)
         return True
 
     # ── Internal ──────────────────────────────────────────────────────────────
@@ -180,8 +181,10 @@ class TTSPlayer:
         print(f"TTS: {total_pcm / (SAMPLE_RATE * 2):.1f}s of audio ready")
         return True
 
-    def _play(self, sensor_manager, event_queue):
-        """Play WAV_PATH via I2S, polling sensors between DMA ticks."""
+    def _play(self, sensor_manager, event_queue, lights=None):
+        """Play WAV_PATH via I2S, polling sensors and updating LEDs each tick."""
+        if lights is not None:
+            lights.start_speaking()
         self._power.value = True
         try:
             with open(WAV_PATH, "rb") as f:
@@ -192,7 +195,11 @@ class TTSPlayer:
                         ev = sensor_manager.poll()
                         if ev is not None and event_queue is not None:
                             event_queue.put(ev)
+                    if lights is not None:
+                        lights.update()
         except Exception as e:  # noqa: BLE001
             print(f"TTS playback error: {e}")
         finally:
             self._power.value = False
+            if lights is not None:
+                lights.stop_speaking()

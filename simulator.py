@@ -83,16 +83,18 @@ def load_persona(name):
 MODEL            = "claude-opus-4-6"
 MAX_TOKENS_SPEAK = 120
 MAX_TOKENS_WAIT  = 60
+LOG_WINDOW_S     = 3600   # keep last hour of interactions
 
-def stream_response(client, system, prompt, max_tokens):
+
+def stream_response(client, system, messages, max_tokens):
     """Stream the LLM response, printing with a typewriter effect. Returns full text."""
     print(green("  ❝ "), end="", flush=True)
     full = []
     with client.messages.stream(
-        model=model_name(),
+        model=MODEL,
         max_tokens=max_tokens,
         system=system,
-        messages=[{"role": "user", "content": prompt}],
+        messages=messages,
     ) as stream:
         for chunk in stream.text_stream:
             print(green(chunk), end="", flush=True)
@@ -101,8 +103,18 @@ def stream_response(client, system, prompt, max_tokens):
     return "".join(full)
 
 
-def model_name():
-    return MODEL
+def build_messages(log, current_prompt):
+    """
+    Prepend the last hour of (user, assistant) log pairs before the current prompt.
+    """
+    cutoff = time.monotonic() - LOG_WINDOW_S
+    messages = []
+    for entry in log:
+        if entry["t"] >= cutoff:
+            messages.append({"role": "user",      "content": entry["user"]})
+            messages.append({"role": "assistant",  "content": entry["assistant"]})
+    messages.append({"role": "user", "content": current_prompt})
+    return messages
 
 
 # ── Command parser ────────────────────────────────────────────────────────────
@@ -381,6 +393,7 @@ def run(api_key, initial_persona):
     system   = load_persona(persona)
     state    = DoorState()
     queued_thought = ""
+    log      = []   # list of {"t": monotonic, "user": str, "assistant": str}
 
     _play_sound(STARTUP_SOUND)
     print(cyan(BANNER))
@@ -436,6 +449,7 @@ def run(api_key, initial_persona):
             system  = load_persona(persona)
             state   = DoorState()
             queued_thought = ""
+            log     = []   # fresh log for new persona
             print(gold(
                 f"\n  The door shimmers. Something about its fundamental attitude "
                 f"has changed. It is now: {bold(persona.upper())}.\n"
@@ -459,6 +473,8 @@ def run(api_key, initial_persona):
         state.update(event)
 
         # WAIT → prequeue-style thought, not a full response
+        # (uses history for coherence but doesn't add itself to the log —
+        #  it was never spoken aloud; it becomes QUEUED_THOUGHT next turn)
         if action == "wait":
             ctx_lines = [
                 f"STATE: {state.state_label}",
@@ -475,7 +491,7 @@ def run(api_key, initial_persona):
                 + "\n".join(ctx_lines)
             )
             queued_thought = stream_response(
-                client, system, prompt, MAX_TOKENS_WAIT
+                client, system, [{"role": "user", "content": prompt}], MAX_TOKENS_WAIT
             )
             print_state(state)
             continue
@@ -485,13 +501,15 @@ def run(api_key, initial_persona):
             print_state(state)
             continue
 
-        # All other events → full LLM response
+        # All other events → full LLM response with history
         context_block = build_context_block(
             state, event, queued_thought=queued_thought
         )
         queued_thought = ""  # consumed
 
-        stream_response(client, system, context_block, MAX_TOKENS_SPEAK)
+        messages = build_messages(log, context_block)
+        reply = stream_response(client, system, messages, MAX_TOKENS_SPEAK)
+        log.append({"t": time.monotonic(), "user": context_block, "assistant": reply})
         print_state(state)
 
 

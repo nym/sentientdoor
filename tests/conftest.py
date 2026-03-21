@@ -35,6 +35,10 @@ _HW_MODULES = [
     "toml",
     "network",        # firmware/network.py — not under test here; stub for importers
     "adafruit_requests",
+    "neopixel",
+    "pwmio",
+    "adafruit_motor",
+    "adafruit_motor.servo",
 ]
 
 for _mod in _HW_MODULES:

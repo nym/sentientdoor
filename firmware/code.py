@@ -33,6 +33,7 @@ from knock   import KnockRecogniser
 from state   import DoorState
 from llm     import LLMClient
 from tts     import TTSPlayer
+from lights  import LightController
 from events  import (
     EventQueue,
     KNOCK_SOFT, KNOCK_LOUD, KNOCK_PATTERN,
@@ -65,6 +66,8 @@ def load_settings():
         "LEAN_DURATION_S", "KNOCK_WINDOW_MS",
         "KNOCK_PATTERN_MIN", "KNOCK_PATTERN_MAX",
         "PREQUEUE_INTERVAL_S", "NTP_TZ_OFFSET",
+        "PIN_NEOPIXEL", "NEOPIXEL_COUNT",
+        "SERVO_PIN", "SERVO_OPEN_DEG", "SERVO_CLOSED_DEG", "SERVO_RATE_HZ",
     ]
     settings = {}
     for k in keys:
@@ -93,6 +96,7 @@ def main():
     queue     = EventQueue(maxlen=16)
     llm       = LLMClient(settings, session=session)
     tts       = TTSPlayer(settings, session=session)
+    lights    = LightController(settings)
 
     queued_thought    = ""
     prequeue_interval = float(settings.get("PREQUEUE_INTERVAL_S", 300))
@@ -106,7 +110,8 @@ def main():
     while True:
         now = time.monotonic()
 
-        # ── 1. Poll sensors ───────────────────────────────────────────────────
+        # ── 1. Poll sensors + update LEDs ────────────────────────────────────
+        lights.update()
         raw_event = sensors.poll()
         if raw_event is not None:
             if raw_event.kind in (KNOCK_SOFT, KNOCK_LOUD):
@@ -141,6 +146,7 @@ def main():
 
         state.update(event)
         last_activity = now
+        lights.react(event.kind)
 
         if event.kind in SILENT_EVENTS:
             continue
@@ -158,8 +164,8 @@ def main():
 
         print(f"Door says: {text!r}")
 
-        # ── 6. Speak (sensors polled during playback) ─────────────────────────
-        tts.speak(text, sensor_manager=sensors, event_queue=queue)
+        # ── 6. Speak (sensors + LEDs updated during playback) ────────────────
+        tts.speak(text, sensor_manager=sensors, event_queue=queue, lights=lights)
 
 
 try:

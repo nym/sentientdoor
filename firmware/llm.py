@@ -4,9 +4,17 @@ LLM client — talks to the Anthropic Messages API over Wi-Fi.
 Two modes:
   respond(event, state)  — triggered by a real door event; returns spoken text.
   prequeue(state)        — called on a timer; returns a short held thought.
+
+Interaction log
+---------------
+Every respond() call that gets a reply is recorded as a (user, assistant) pair.
+Entries older than LOG_WINDOW_S are pruned before each call so the model always
+sees the last hour of conversation — giving the door genuine session memory
+without storing anything across power cycles.
 """
 
 import json
+import time
 import wifi
 import socketpool
 import adafruit_requests
@@ -19,6 +27,9 @@ API_URL             = "https://api.anthropic.com/v1/messages"
 MODEL               = "claude-opus-4-6"
 MAX_TOKENS_RESPOND  = 120
 MAX_TOKENS_PREQUEUE = 60
+
+LOG_WINDOW_S  = 3600   # keep last hour of interactions
+LOG_MAX_ENTRIES = 20   # hard cap for CircuitPython RAM safety
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -85,12 +96,19 @@ class LLMClient:
             pool = socketpool.SocketPool(wifi.radio)
             self._session = adafruit_requests.Session(pool, ssl.create_default_context())
 
+        # Interaction log: list of {"t": monotonic, "user": str, "assistant": str}
+        self._log = []
+
     # ── Public interface ──────────────────────────────────────────────────────
 
     def respond(self, event, state, queued_thought=""):
         ctx  = build_context_block(state, event, queued_thought=queued_thought)
         text = self._call(ctx, max_tokens=MAX_TOKENS_RESPOND)
-        return _sanitize_for_tts(text) if text else None
+        if text:
+            clean = _sanitize_for_tts(text)
+            self._record(ctx, clean)
+            return clean
+        return None
 
     def prequeue(self, state):
         ctx_lines = [
@@ -108,21 +126,52 @@ class LLMClient:
             "Do not speak it aloud yet. Just think it.\n\n"
             + "\n".join(ctx_lines)
         )
-        result = self._call(prompt, max_tokens=MAX_TOKENS_PREQUEUE)
+        # Prequeue uses history for coherence but does not add itself to the log
+        # (it was never spoken aloud — it becomes QUEUED_THOUGHT in the next respond call)
+        result = self._call(prompt, max_tokens=MAX_TOKENS_PREQUEUE, include_history=False)
         return _sanitize_for_tts(result) if result else ""
 
     # ── Internal ──────────────────────────────────────────────────────────────
 
-    def _call(self, user_content, max_tokens):
+    def _prune_log(self):
+        """Remove entries older than LOG_WINDOW_S and enforce the hard cap."""
+        cutoff = time.monotonic() - LOG_WINDOW_S
+        self._log = [e for e in self._log if e["t"] >= cutoff]
+        if len(self._log) > LOG_MAX_ENTRIES:
+            self._log = self._log[-LOG_MAX_ENTRIES:]
+
+    def _record(self, user_content, assistant_content):
+        self._log.append({
+            "t":         time.monotonic(),
+            "user":      user_content,
+            "assistant": assistant_content,
+        })
+
+    def _build_messages(self, current_user_content, include_history=True):
+        """
+        Build the messages array for the API call.
+        History entries become alternating user/assistant pairs before the
+        current prompt, giving the model genuine conversational context.
+        """
+        messages = []
+        if include_history:
+            self._prune_log()
+            for entry in self._log:
+                messages.append({"role": "user",      "content": entry["user"]})
+                messages.append({"role": "assistant", "content": entry["assistant"]})
+        messages.append({"role": "user", "content": current_user_content})
+        return messages
+
+    def _call(self, user_content, max_tokens, include_history=True):
         if not network.ensure_connected(self._settings):
             print("LLM: no network")
             return None
 
         payload = {
-            "model": MODEL,
+            "model":      MODEL,
             "max_tokens": max_tokens,
-            "system": self._system,
-            "messages": [{"role": "user", "content": user_content}],
+            "system":     self._system,
+            "messages":   self._build_messages(user_content, include_history),
         }
         try:
             resp = self._session.post(
