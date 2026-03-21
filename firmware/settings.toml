@@ -16,14 +16,28 @@ VOICE_ID_STOIC = ""
 VOICE_ID_CATASTROPHIST = ""
 
 # GPIO pins — adjust if your wiring differs
-PIN_REED_SWITCH = "D6"     # Magnetic reed switch: LOW = closed, HIGH = open
+PIN_REED_SWITCH = "D6"     # Magnetic reed switch: HIGH (pull-up, magnet gone) = door open
 PIN_PIR = "D9"             # PIR / proximity sensor: HIGH = person detected
 PIN_POWER_ENABLE = "A0"    # Prop-Maker FeatherWing power enable
 
-# Thresholds
-SLAM_THRESHOLD_G = 3.5         # Accelerometer magnitude (g) to classify as slam
-KNOCK_THRESHOLD_G = 1.2        # Minimum magnitude to register a knock
-LEAN_THRESHOLD_G = 0.35        # Sustained off-axis tilt to classify as lean
+# I2S audio pins — Prop-Maker FeatherWing on Feather ESP32-S3
+# VERIFY these against Adafruit's pinout diagram for your specific board revision.
+# The Prop-Maker FeatherWing maps its audio header to whatever I2S-capable pins
+# the Feather exposes. Common assignments for the ESP32-S3 Feather are A0/A1/A2
+# but they may differ on older or newer board revisions.
+PIN_I2S_BCLK  = "A0"
+PIN_I2S_LRCLK = "A1"
+PIN_I2S_DATA  = "A2"
+
+# NTP timezone offset in hours (e.g. -5 for US Eastern, 1 for UK BST)
+NTP_TZ_OFFSET = 0
+
+# Thresholds (relative to calibrated rest — the accelerometer is zeroed at boot)
+# A knock of 0.5g above rest is firmly perceptible; adjust down if too insensitive.
+# A slam of 3.0g above rest is a hard close; adjust up to ignore door-frame impact.
+SLAM_THRESHOLD_G = 3.0         # g above rest to classify as slam
+KNOCK_THRESHOLD_G = 0.5        # g above rest to register a knock
+LEAN_THRESHOLD_G = 0.35        # g horizontal deviation above rest to detect lean
 LEAN_DURATION_S = 4.0          # Seconds of sustained tilt before firing lean event
 KNOCK_WINDOW_MS = 800          # Max gap between notes in a knock pattern (ms)
 KNOCK_PATTERN_MIN = 5          # Minimum notes to constitute a pattern knock

@@ -23,7 +23,6 @@ LEAN             = "lean"
 MAIL_FLAP        = "mail_flap"
 PROXIMITY_APPROACH = "proximity_approach"
 PROXIMITY_DEPART   = "proximity_depart"
-PREQUEUE_TICK    = "prequeue_tick"    # internal: time to refresh queued thought
 
 
 # ── Touch force classification ────────────────────────────────────────────────

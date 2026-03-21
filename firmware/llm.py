@@ -2,11 +2,8 @@
 LLM client — talks to the Anthropic Messages API over Wi-Fi.
 
 Two modes:
-  respond(event, state)     — triggered by a real door event; uses the full
-                              context block and returns spoken text.
-  prequeue(state)           — called on a timer; asks the door to form a
-                              thought it will hold until the next event.
-                              Returns a short string stored as queued_thought.
+  respond(event, state)  — triggered by a real door event; returns spoken text.
+  prequeue(state)        — called on a timer; returns a short held thought.
 """
 
 import json
@@ -14,23 +11,49 @@ import wifi
 import socketpool
 import adafruit_requests
 import ssl
+import network
 from context import build_context_block
 
 
-API_URL = "https://api.anthropic.com/v1/messages"
-MODEL   = "claude-opus-4-6"
-MAX_TOKENS_RESPOND  = 120   # spoken words; keep it brief
-MAX_TOKENS_PREQUEUE = 60    # internal thought; even briefer
+API_URL             = "https://api.anthropic.com/v1/messages"
+MODEL               = "claude-opus-4-6"
+MAX_TOKENS_RESPOND  = 120
+MAX_TOKENS_PREQUEUE = 60
 
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _load_persona_prompt(persona_name):
-    """Read the persona system prompt from flash."""
-    path = f"/personas/{persona_name}.md"
-    try:
-        with open(path, "r") as f:
-            return f.read()
-    except OSError:
-        return f"You are a door with the {persona_name} persona."
+    """
+    Read shared_rules.md then the persona file, joined with a separator.
+    Both files must live in /personas/ on the CIRCUITPY drive.
+    Missing shared_rules.md is logged but not fatal; missing persona file
+    falls back to a minimal stub.
+    """
+    parts = []
+    for path in ("/personas/shared_rules.md", f"/personas/{persona_name}.md"):
+        try:
+            with open(path, "r") as f:
+                parts.append(f.read())
+        except OSError:
+            print(f"Warning: could not read {path}")
+
+    if not parts:
+        return f"You are a door. Your persona is {persona_name}."
+    return "\n\n---\n\n".join(parts)
+
+
+def _sanitize_for_tts(text):
+    """
+    Strip markdown formatting that TTS would speak literally.
+    CircuitPython has no `re` module — simple character replacement only.
+    """
+    for ch in ("*", "_", "`", "#", ">"):
+        text = text.replace(ch, "")
+    # Collapse runs of spaces left by stripping
+    while "  " in text:
+        text = text.replace("  ", " ")
+    return text.strip()
 
 
 def _headers(api_key):
@@ -41,37 +64,35 @@ def _headers(api_key):
     }
 
 
+# ── Client ────────────────────────────────────────────────────────────────────
+
 class LLMClient:
 
-    def __init__(self, settings):
-        self._api_key  = settings["ANTHROPIC_API_KEY"]
-        self._persona  = settings.get("PERSONA", "enthusiast")
-        self._system   = _load_persona_prompt(self._persona)
+    def __init__(self, settings, session=None):
+        self._settings = settings
 
-        self._voice_id = settings.get(
-            f"VOICE_ID_{self._persona.upper()}", ""
-        )
+        api_key = settings.get("ANTHROPIC_API_KEY", "")
+        if not api_key:
+            raise ValueError("ANTHROPIC_API_KEY is missing from settings.toml")
+        self._api_key = api_key
 
-        # Set up a persistent requests session (reuses the TCP socket where possible)
-        pool = socketpool.SocketPool(wifi.radio)
-        self._session = adafruit_requests.Session(pool, ssl.create_default_context())
+        self._persona = settings.get("PERSONA", "enthusiast")
+        self._system  = _load_persona_prompt(self._persona)
+
+        if session is not None:
+            self._session = session
+        else:
+            pool = socketpool.SocketPool(wifi.radio)
+            self._session = adafruit_requests.Session(pool, ssl.create_default_context())
 
     # ── Public interface ──────────────────────────────────────────────────────
 
     def respond(self, event, state, queued_thought=""):
-        """
-        Build a full context block from `state` + `event` and ask the door
-        to speak. Returns the text string, or None on error.
-        """
-        ctx = build_context_block(state, event, queued_thought=queued_thought)
-        user_message = ctx   # the context block IS the user turn
-        return self._call(user_message, max_tokens=MAX_TOKENS_RESPOND)
+        ctx  = build_context_block(state, event, queued_thought=queued_thought)
+        text = self._call(ctx, max_tokens=MAX_TOKENS_RESPOND)
+        return _sanitize_for_tts(text) if text else None
 
     def prequeue(self, state):
-        """
-        Ask the door to form a background thought without any triggering event.
-        Returns a short string (the thought), or "" on error.
-        """
         ctx_lines = [
             f"STATE: {state.state_label}",
             f"DURATION: {state.state_duration}",
@@ -80,26 +101,28 @@ class LLMClient:
             f"SESSION_OPENS: {state.session_opens}",
             f"SESSION_TOUCHES: {state.session_touches}",
         ]
-        prequeue_prompt = (
+        prompt = (
             "Nothing is happening right now. "
             "Form a thought — one or two sentences — that you are holding, "
             "ready to use or discard when the next event arrives. "
             "Do not speak it aloud yet. Just think it.\n\n"
             + "\n".join(ctx_lines)
         )
-        result = self._call(prequeue_prompt, max_tokens=MAX_TOKENS_PREQUEUE)
-        return result or ""
+        result = self._call(prompt, max_tokens=MAX_TOKENS_PREQUEUE)
+        return _sanitize_for_tts(result) if result else ""
 
     # ── Internal ──────────────────────────────────────────────────────────────
 
     def _call(self, user_content, max_tokens):
+        if not network.ensure_connected(self._settings):
+            print("LLM: no network")
+            return None
+
         payload = {
             "model": MODEL,
             "max_tokens": max_tokens,
             "system": self._system,
-            "messages": [
-                {"role": "user", "content": user_content}
-            ],
+            "messages": [{"role": "user", "content": user_content}],
         }
         try:
             resp = self._session.post(
