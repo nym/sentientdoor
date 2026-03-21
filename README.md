@@ -113,12 +113,47 @@ You will also need a **LiPo battery** (3.7V, any capacity; 500mAh is fine for mo
 
 ---
 
+## Demo: The Text Adventure
+
+You do not need any hardware to talk to the door.
+
+`simulator.py` is a Hitchhiker's Guide to the Galaxy-style text adventure that runs entirely on your laptop. It imports the firmware's pure-Python state and event modules directly, calls the same LLM with the same persona prompts, and streams the door's response to your terminal with a typewriter effect.
+
+```
+pip install anthropic          # or: pip install -r requirements.txt
+export ANTHROPIC_API_KEY=sk-ant-...
+python simulator.py
+```
+
+Switch persona with `--persona stoic` or mid-session with `PERSONA stoic`. No hardware, no Wi-Fi module, no speaker required.
+
+**Available commands:**
+
+| Command | What it does |
+|---|---|
+| `TAP` | soft single knock |
+| `KNOCK` | firm knock |
+| `BANG` | loud, impolite knock |
+| `KNOCK 6 TIMES` | 6-note pattern knock (5–8 notes) |
+| `OPEN` / `FORCE OPEN` | open the door gently or violently |
+| `CLOSE` / `SLAM` | close the door, or really close it |
+| `TOUCH` / `SHOVE` | gentle or rough contact |
+| `LEAN` | sustained lean — time passes |
+| `APPROACH` / `LEAVE` | walk up to or away from the door |
+| `WAIT` | stand still; the door forms an unprompted thought |
+| `LOOK` | inspect the door's current state |
+| `PERSONA <name>` | switch to enthusiast / stoic / catastrophist |
+| `HELP` / `QUIT` | help or exit |
+
+---
+
 ## Repository Structure
 
 ```
 /personas          — The three LLM system prompts (Enthusiast, Stoic, Catastrophist)
 /firmware          — CircuitPython code for the Feather: sensor polling, event dispatch, TTS
 /docs              — Wiring diagrams, mounting notes, enclosure suggestions
+simulator.py       — Desktop text adventure demo (no hardware required)
 ```
 
 ---
