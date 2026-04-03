@@ -91,25 +91,34 @@ class TTSPlayer:
 
     # ── Public interface ──────────────────────────────────────────────────────
 
-    def speak(self, text, sensor_manager=None, event_queue=None, lights=None):
+    def speak(self, text, sensor_manager=None, event_queue=None, lights=None, servo=None, display=None):
         """
-        Synthesise `text` and play it. Sensors and LED animations are updated
-        during playback so neither blocks the other.
+        Synthesise `text` and play it. Sensors, LEDs, and servo are all updated
+        during playback so nothing blocks the audio loop.
+        If `display` is provided the text is shown on-screen immediately (before
+        the audio fetch) so it is always visible even if the speaker is silent.
         Returns True on success, False on any error.
         """
         if not text or not self._voice_id:
             print("TTS: no text or voice_id configured — skipping")
             return False
 
+        if display is not None:
+            display.show_text(text)
+
         if not network.ensure_connected(self._settings):
             print("TTS: no network — skipping")
             return False
 
-        if not self._fetch_to_file(text):
-            return False
+        try:
+            if not self._fetch_to_file(text):
+                return False
 
-        self._play(sensor_manager, event_queue, lights)
-        return True
+            self._play(sensor_manager, event_queue, lights, servo)
+            return True
+        finally:
+            if display is not None:
+                display.clear()
 
     # ── Internal ──────────────────────────────────────────────────────────────
 
@@ -181,10 +190,12 @@ class TTSPlayer:
         print(f"TTS: {total_pcm / (SAMPLE_RATE * 2):.1f}s of audio ready")
         return True
 
-    def _play(self, sensor_manager, event_queue, lights=None):
-        """Play WAV_PATH via I2S, polling sensors and updating LEDs each tick."""
+    def _play(self, sensor_manager, event_queue, lights=None, servo=None):
+        """Play WAV_PATH via I2S, updating sensors, LEDs, and servo each tick."""
         if lights is not None:
             lights.start_speaking()
+        if servo is not None:
+            servo.start_speaking()
         self._power.value = True
         try:
             with open(WAV_PATH, "rb") as f:
@@ -197,9 +208,13 @@ class TTSPlayer:
                             event_queue.put(ev)
                     if lights is not None:
                         lights.update()
+                    if servo is not None:
+                        servo.update()
         except Exception as e:  # noqa: BLE001
             print(f"TTS playback error: {e}")
         finally:
             self._power.value = False
             if lights is not None:
                 lights.stop_speaking()
+            if servo is not None:
+                servo.stop_speaking()

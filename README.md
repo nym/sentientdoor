@@ -158,6 +158,43 @@ simulator.py       — Desktop text adventure demo (no hardware required)
 
 ---
 
+## Configuration
+
+`firmware/settings.toml` is not checked into this repository — it contains credentials. Copy the example and fill in your values:
+
+```
+cp firmware/settings.toml.example firmware/settings.toml
+```
+
+Then copy `firmware/settings.toml` to the root of your CIRCUITPY drive (not into a subfolder).
+
+### Required
+
+| Setting | Where to get it |
+|---|---|
+| `WIFI_SSID` / `WIFI_PASSWORD` | Your Wi-Fi network |
+| `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com) → API Keys |
+| `ELEVENLABS_API_KEY` | [elevenlabs.io](https://elevenlabs.io) → Profile → API Key |
+| `VOICE_ID_<PERSONA>` | ElevenLabs voice library — pick one voice per persona and paste its ID. The voice ID is the string in the URL when you open a voice: `elevenlabs.io/voice-lab/voice/<ID>` |
+
+You only need a `VOICE_ID_*` for the persona(s) you intend to use. Leave the others blank.
+
+### Optional
+
+| Setting | Default | Notes |
+|---|---|---|
+| `PERSONA` | `enthusiast` | `enthusiast` / `stoic` / `catastrophist` / `narrator` |
+| `NTP_TZ_OFFSET` | `0` | Hours offset from UTC, e.g. `-5` for US Eastern, `1` for UK BST |
+| `SLAM_THRESHOLD_G` | `3.0` | G-force above rest to classify as a slam. Raise if bumps in the wall trigger it. |
+| `KNOCK_THRESHOLD_G` | `0.5` | G-force above rest to register a knock. Lower if the door is heavy. |
+| `PREQUEUE_INTERVAL_S` | `300` | How often (seconds) the door updates its held thought when idle. |
+| `SERVO_PIN` | *(blank)* | Set to a PWM pin (e.g. `A3`) to enable the servo mouth. |
+| `TFT_CS` | *(blank)* | Set to a chip-select pin (e.g. `D10`) to enable the TFT display. If you enable TFT, also change `TFT_DC` away from `D9` — that pin is used by the PIR sensor. |
+
+All other pin settings (`PIN_REED_SWITCH`, `PIN_PIR`, `PIN_I2S_*`, etc.) match the standard Prop-Maker FeatherWing wiring and should not need changing unless your build differs.
+
+---
+
 ## A Note on Character
 
 The door should never sound like a chatbot. It should never say "As a door, I..." or break to explain itself or step outside the fiction for any reason whatsoever. It is a door. It has always been a door. It will, unless something goes very wrong, always be a door.

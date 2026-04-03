@@ -33,7 +33,9 @@ from knock   import KnockRecogniser
 from state   import DoorState
 from llm     import LLMClient
 from tts     import TTSPlayer
-from lights  import LightController
+from display import TFTDisplay
+from lights   import LightController, ServoMouth
+from reflexes import load as load_reflexes, ReflexEngine
 from events  import (
     EventQueue,
     KNOCK_SOFT, KNOCK_LOUD, KNOCK_PATTERN,
@@ -47,9 +49,8 @@ SPEAKING_EVENTS = {
     KNOCK_SOFT, KNOCK_LOUD, KNOCK_PATTERN,
     OPEN_GENTLE, OPEN_FORCE, CLOSE_GENTLE, SLAM,
     TOUCH_GENTLE, TOUCH_ROUGH, LEAN,
-    PROXIMITY_APPROACH,
 }
-SILENT_EVENTS = {PROXIMITY_DEPART}
+SILENT_EVENTS = {PROXIMITY_APPROACH, PROXIMITY_DEPART}
 
 PREQUEUE_IDLE_SUPPRESS_S = 1800   # suppress prequeue if idle > 30 minutes
 
@@ -59,7 +60,7 @@ def load_settings():
         "WIFI_SSID", "WIFI_PASSWORD",
         "ANTHROPIC_API_KEY", "ELEVENLABS_API_KEY",
         "PERSONA",
-        "VOICE_ID_ENTHUSIAST", "VOICE_ID_STOIC", "VOICE_ID_CATASTROPHIST",
+        "VOICE_ID_ENTHUSIAST", "VOICE_ID_STOIC", "VOICE_ID_CATASTROPHIST", "VOICE_ID_NARRATOR",
         "PIN_REED_SWITCH", "PIN_PIR", "PIN_POWER_ENABLE",
         "PIN_I2S_BCLK", "PIN_I2S_LRCLK", "PIN_I2S_DATA",
         "SLAM_THRESHOLD_G", "KNOCK_THRESHOLD_G", "LEAN_THRESHOLD_G",
@@ -68,6 +69,8 @@ def load_settings():
         "PREQUEUE_INTERVAL_S", "NTP_TZ_OFFSET",
         "PIN_NEOPIXEL", "NEOPIXEL_COUNT",
         "SERVO_PIN", "SERVO_OPEN_DEG", "SERVO_CLOSED_DEG", "SERVO_RATE_HZ",
+        "TFT_CS", "TFT_DC", "TFT_RESET", "TFT_BACKLIGHT",
+        "TFT_WIDTH", "TFT_HEIGHT", "TFT_ROTATION",
     ]
     settings = {}
     for k in keys:
@@ -96,7 +99,11 @@ def main():
     queue     = EventQueue(maxlen=16)
     llm       = LLMClient(settings, session=session)
     tts       = TTSPlayer(settings, session=session)
-    lights    = LightController(settings)
+    lights        = LightController(settings)
+    servo         = ServoMouth(settings)
+    tft           = TFTDisplay(settings)
+    door_reflexes = load_reflexes(settings.get("PERSONA", "enthusiast"))
+    reflex_engine = ReflexEngine(door_reflexes)
 
     queued_thought    = ""
     prequeue_interval = float(settings.get("PREQUEUE_INTERVAL_S", 300))
@@ -146,14 +153,29 @@ def main():
 
         state.update(event)
         last_activity = now
-        lights.react(event.kind)
 
-        if event.kind in SILENT_EVENTS:
+        # ── PROXIMITY_APPROACH → silent prepare, reset reflex session ─────────
+        if event.kind == PROXIMITY_APPROACH:
+            reflex_engine.reset()
+            print("Approach: preparing...")
+            queued_thought = llm.prepare(state) or ""
+            print(f"Prepared thought: {queued_thought!r}")
             continue
+
+        # ── PROXIMITY_DEPART → reset reflex session ───────────────────────────
+        if event.kind == PROXIMITY_DEPART:
+            reflex_engine.reset()
+            continue
+
         if event.kind not in SPEAKING_EVENTS:
             continue
 
-        # ── 5. LLM ───────────────────────────────────────────────────────────
+        # ── 5. Reflex phrase (immediate, covers LLM latency) ──────────────────
+        reflex = reflex_engine.pick(event.kind)
+        if reflex:
+            print(f"[reflex] {reflex}")
+
+        # ── 6. LLM ───────────────────────────────────────────────────────────
         print(f"Event: {event}")
         text = llm.respond(event, state, queued_thought=queued_thought)
         queued_thought = ""
@@ -164,8 +186,9 @@ def main():
 
         print(f"Door says: {text!r}")
 
-        # ── 6. Speak (sensors + LEDs updated during playback) ────────────────
-        tts.speak(text, sensor_manager=sensors, event_queue=queue, lights=lights)
+        # ── 7. Speak (sensors, LEDs, servo updated during playback) ──────────
+        tts.speak(text, sensor_manager=sensors, event_queue=queue,
+                  lights=lights, servo=servo, display=tft)
 
 
 try:

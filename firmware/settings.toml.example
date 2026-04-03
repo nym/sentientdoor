@@ -1,0 +1,79 @@
+# Copy this file to settings.toml on the root of your CIRCUITPY drive.
+# Never commit settings.toml — it contains real credentials.
+
+WIFI_SSID = "YourNetworkName"
+WIFI_PASSWORD = "YourWifiPassword"
+
+ANTHROPIC_API_KEY = "sk-ant-..."
+ELEVENLABS_API_KEY = "your-elevenlabs-key"
+
+# Persona: "enthusiast" | "stoic" | "catastrophist" | "narrator"
+PERSONA = "enthusiast"
+
+# ElevenLabs voice ID for each persona — pick voices from elevenlabs.io/voice-library
+VOICE_ID_ENTHUSIAST = ""
+VOICE_ID_STOIC = ""
+VOICE_ID_CATASTROPHIST = ""
+VOICE_ID_NARRATOR = ""
+
+# GPIO pins — adjust if your wiring differs
+PIN_REED_SWITCH = "D6"     # Magnetic reed switch: HIGH (pull-up, magnet gone) = door open
+PIN_PIR = "D9"             # PIR / proximity sensor: HIGH = person detected
+PIN_POWER_ENABLE = "A0"    # Prop-Maker FeatherWing power enable
+
+# I2S audio pins — Prop-Maker FeatherWing on Feather ESP32-S3
+# VERIFY these against Adafruit's pinout diagram for your specific board revision.
+# The Prop-Maker FeatherWing maps its audio header to whatever I2S-capable pins
+# the Feather exposes. Common assignments for the ESP32-S3 Feather are A0/A1/A2
+# but they may differ on older or newer board revisions.
+PIN_I2S_BCLK  = "A0"
+PIN_I2S_LRCLK = "A1"
+PIN_I2S_DATA  = "A2"
+
+# NTP timezone offset in hours (e.g. -5 for US Eastern, 1 for UK BST)
+NTP_TZ_OFFSET = 0
+
+# Thresholds (relative to calibrated rest — the accelerometer is zeroed at boot)
+# A knock of 0.5g above rest is firmly perceptible; adjust down if too insensitive.
+# A slam of 3.0g above rest is a hard close; adjust up to ignore door-frame impact.
+SLAM_THRESHOLD_G = "3.0"
+KNOCK_THRESHOLD_G = "0.5"
+LEAN_THRESHOLD_G = "0.35"
+# Seconds of sustained tilt before firing lean event
+LEAN_DURATION_S = "4.0"
+# Max gap between notes in a knock pattern (ms)
+KNOCK_WINDOW_MS = 800
+# Minimum notes to constitute a pattern knock
+KNOCK_PATTERN_MIN = 5
+# Maximum notes in a pattern knock
+KNOCK_PATTERN_MAX = 8
+
+# Pre-queue: how often the door updates its queued thought (seconds; 5 minutes)
+PREQUEUE_INTERVAL_S = 300
+
+# NeoPixel RGB strip — Prop-Maker FeatherWing routes NeoPixel data to D5
+PIN_NEOPIXEL   = "D5"
+# Number of pixels on your strip
+NEOPIXEL_COUNT = 30
+
+# TFT display (optional — leave TFT_CS blank to disable)
+# When enabled, spoken text is shown on-screen as a fallback if the speaker
+# is silent. Tested with Adafruit ST7789 TFT FeatherWings (1.14" and 1.3").
+# Note: if you enable TFT, change TFT_DC from its default D9 — it conflicts
+# with PIN_PIR above.
+TFT_CS        = ""          # SPI chip-select pin, e.g. "D10"; blank = disabled
+TFT_DC        = "D8"        # data/command pin (do not use D9 — that is PIN_PIR)
+TFT_RESET     = ""          # hardware reset pin (optional)
+TFT_BACKLIGHT = ""          # backlight pin driven HIGH (optional)
+TFT_WIDTH     = 240
+TFT_HEIGHT    = 135
+# Rotation in degrees: 0 / 90 / 180 / 270
+TFT_ROTATION  = 270
+
+# Servo mouth (optional — leave SERVO_PIN blank to disable)
+# Connect servo signal wire to any PWM-capable pin, e.g. "A3"
+SERVO_PIN        = ""          # leave blank to disable
+# Degrees open while speaking / closed at rest / open-close cycles per second
+SERVO_OPEN_DEG   = 30
+SERVO_CLOSED_DEG = 0
+SERVO_RATE_HZ    = 3

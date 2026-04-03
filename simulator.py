@@ -19,6 +19,8 @@ import sys
 import os
 import pathlib
 import time
+import json
+import random
 import argparse
 import textwrap
 import subprocess
@@ -43,6 +45,7 @@ from context import build_context_block
 from knock import KnockRecogniser
 
 import anthropic
+from reflexes import ReflexEngine
 
 
 # ── ANSI colour helpers ───────────────────────────────────────────────────────
@@ -58,9 +61,21 @@ def bold(t):    return _c("1", t)
 def italic(t):  return _c("3", t)
 
 
+# ── Reflex loading ────────────────────────────────────────────────────────────
+
+def load_reflexes(persona):
+    """Load reflex JSON for the given persona from the local personas/ directory."""
+    path = _here / "personas" / f"{persona}_reflexes.json"
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
 # ── Persona loading ───────────────────────────────────────────────────────────
 
-PERSONAS = ("enthusiast", "stoic", "catastrophist")
+PERSONAS = ("enthusiast", "stoic", "catastrophist", "narrator")
 
 def load_persona(name):
     """Read shared_rules.md + persona file, joined with ---."""
@@ -388,12 +403,13 @@ BANNER = r"""
 
 
 def run(api_key, initial_persona):
-    client   = anthropic.Anthropic(api_key=api_key)
-    persona  = initial_persona
-    system   = load_persona(persona)
-    state    = DoorState()
+    client        = anthropic.Anthropic(api_key=api_key)
+    persona       = initial_persona
+    system        = load_persona(persona)
+    state         = DoorState()
     queued_thought = ""
-    log      = []   # list of {"t": monotonic, "user": str, "assistant": str}
+    log           = []   # list of {"t": monotonic, "user": str, "assistant": str}
+    reflex_engine = ReflexEngine(load_reflexes(persona))
 
     _play_sound(STARTUP_SOUND)
     print(cyan(BANNER))
@@ -445,11 +461,12 @@ def run(api_key, initial_persona):
                     f"{', '.join(PERSONAS)}\n"
                 ))
                 continue
-            persona = name
-            system  = load_persona(persona)
-            state   = DoorState()
+            persona       = name
+            system        = load_persona(persona)
+            state         = DoorState()
             queued_thought = ""
-            log     = []   # fresh log for new persona
+            log           = []   # fresh log for new persona
+            reflex_engine = ReflexEngine(load_reflexes(persona))
             print(gold(
                 f"\n  The door shimmers. Something about its fundamental attitude "
                 f"has changed. It is now: {bold(persona.upper())}.\n"
@@ -496,12 +513,47 @@ def run(api_key, initial_persona):
             print_state(state)
             continue
 
-        # Silent events (DEPART) — no LLM call
-        if event.kind == PROXIMITY_DEPART:
+        # APPROACH → silent prepare call; store as queued_thought
+        if event.kind == PROXIMITY_APPROACH:
+            reflex_engine.reset()
+            print(dim("  [preparing...]"))
+            ctx_lines = [
+                f"STATE: {state.state_label}",
+                f"DURATION: {state.state_duration}",
+                f"LAST_CONTACT: {state.last_contact_str}",
+                f"IGNORED_STREAK: {state.ignored_streak}",
+                f"SESSION_OPENS: {state.session_opens}",
+                f"SESSION_TOUCHES: {state.session_touches}",
+            ]
+            prepare_prompt = (
+                "Someone is approaching. You sense their presence before they interact. "
+                "Based on your state and recent history, form a single thought about how "
+                "you are preparing for this encounter. Do not speak it yet. Just hold it.\n\n"
+                + "\n".join(ctx_lines)
+            )
+            messages = build_messages(log, prepare_prompt)
+            resp = client.messages.create(
+                model=MODEL,
+                max_tokens=MAX_TOKENS_WAIT,
+                system=system,
+                messages=messages,
+            )
+            queued_thought = resp.content[0].text.strip() if resp.content else ""
+            print(dim(f"  [held: {queued_thought!r}]"))
             print_state(state)
             continue
 
-        # All other events → full LLM response with history
+        # DEPART → reset reflex session, no LLM call
+        if event.kind == PROXIMITY_DEPART:
+            reflex_engine.reset()
+            print_state(state)
+            continue
+
+        # All other events → reflex phrase then full LLM response
+        reflex = reflex_engine.pick(event.kind)
+        if reflex:
+            print(cyan(f"  {reflex}"))
+
         context_block = build_context_block(
             state, event, queued_thought=queued_thought
         )

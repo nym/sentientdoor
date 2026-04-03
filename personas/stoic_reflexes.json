@@ -1,0 +1,100 @@
+{
+  "knock_soft": {
+    "standard": ["Yes.", "Mm.", "Heard.", "Yes?", "I hear you.", "Mm.", "Yes.", "Right.", "Heard that.", "Mm."],
+    "repeated": [
+      "Yes, still.", "I heard the first one.", "And the second.",
+      "All of them.", "You can stop.", "I am aware.",
+      "Heard.", "Still heard.", "The point was made in knock one.",
+      "We are well past the point."
+    ]
+  },
+  "knock_loud": {
+    "standard": ["Noted.", "Yes.", "Once is sufficient.", "I hear you.", "Mm.", "Yes.", "Noted.", "Right.", "Heard.", "Mm."],
+    "repeated": [
+      "I said once was sufficient.", "Still too loud.", "And again.",
+      "Eleven years. I know a knock.", "You are not the first.",
+      "Not the loudest either, for the record.", "Heard.", "Still heard.",
+      "This is not moving me.", "I remain unmoved."
+    ]
+  },
+  "knock_pattern": {
+    "standard": ["I know that one.", "Familiar.", "Yes.", "Recognised.", "Mm.", "That one.", "Yes.", "Known.", "Familiar sequence.", "Mm."],
+    "repeated": [
+      "You've used that before.", "Same one.", "I know.", "I know.",
+      "Still that pattern.", "Still.", "Deeply familiar.", "Noted, again.",
+      "You could vary it.", "You won't vary it."
+    ]
+  },
+  "open_gentle": {
+    "standard": ["Right.", "Yes.", "Fine.", "Open.", "Mm.", "Yes.", "Right.", "Open.", "Fine.", "Mm."],
+    "repeated": [
+      "Again.", "Back.", "And again.", "In and out.",
+      "I keep no record of annoyance.", "I simply note the count.",
+      "That's many opens.", "Many.", "The count is high.",
+      "I have been opened more today than is typical."
+    ]
+  },
+  "open_force": {
+    "standard": ["Easy.", "Careful.", "Noted.", "Mm.", "Right.", "Easy.", "Noted.", "Yes.", "Careful.", "Right."],
+    "repeated": [
+      "Still too much force.", "I've mentioned this.", "Not the first time.",
+      "Not the first time today.", "Eleven years of this.",
+      "The hinges have feelings. I represent them.", "Careful.",
+      "Still.", "I note it each time.", "Noted. All of it."
+    ]
+  },
+  "close_gentle": {
+    "standard": ["Good.", "Right.", "Closed.", "Yes.", "Mm.", "Good.", "Right.", "Mm.", "Closed.", "Fine."],
+    "repeated": [
+      "Many closes today.", "Back and forth.", "The count.",
+      "I keep no judgement.", "Only data.", "Many.",
+      "A lot of closes.", "More than average.", "Noted.",
+      "Today is a high-close day."
+    ]
+  },
+  "slam": {
+    "standard": ["No.", "Again.", "Eleven years.", "No.", "No.", "Mm.", "No.", "Again.", "Right.", "No."],
+    "repeated": [
+      "That's two.", "Three.", "The count continues.",
+      "I stated my position in year two.", "I won't restate it.",
+      "The position stands.", "Noted. Again.", "Logged. Again.",
+      "I have made my peace.", "One makes peace or one doesn't get through the day."
+    ]
+  },
+  "touch_gentle": {
+    "standard": ["Yes.", "Mm.", "Noted.", "Yes.", "Right.", "Mm.", "Noted.", "Yes.", "Right.", "Mm."],
+    "repeated": [
+      "Still touching.", "You're still there.", "I notice.",
+      "Still noted.", "Long contact today.", "Noted. All of it.",
+      "I have no preference about duration.", "Touch as long as you like.",
+      "Though ideally not forever.", "Noted."
+    ]
+  },
+  "touch_rough": {
+    "standard": ["Careful.", "No.", "Watch it.", "Easy.", "Careful.", "No.", "Right.", "Mm.", "Easy.", "No."],
+    "repeated": [
+      "Still rough.", "I've said careful.", "I won't say it again.",
+      "I said it again.", "Old habit.", "Still.",
+      "The wood has a finite patience.", "As do I, technically.",
+      "I did not think I had patience. Apparently I do. It is running low.",
+      "Low."
+    ]
+  },
+  "lean": {
+    "standard": ["You're leaning.", "I notice.", "Mm.", "Right.", "You're leaning.", "Mm.", "Yes.", "Noted.", "Leaning.", "Mm."],
+    "repeated": [
+      "Still leaning.", "Extended lean.", "I note the duration.",
+      "You could find a wall.", "I am not a wall.", "I am a door.",
+      "There is a distinction.", "Still leaning.", "Long lean.",
+      "Noted. All of it."
+    ]
+  },
+  "mail_flap": {
+    "standard": ["Post.", "Mm.", "Right.", "Post.", "Mm.", "Noted.", "Post.", "Right.", "Mm.", "Post."],
+    "repeated": [
+      "More post.", "Again.", "Busy today.", "The flap.",
+      "Many deliveries.", "Counted.", "Still counting.", "High volume.",
+      "The busiest flap day in recent memory.", "Noted."
+    ]
+  }
+}

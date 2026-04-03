@@ -24,7 +24,6 @@ import math
 import board
 import busio
 import digitalio
-import adafruit_lis3dh
 from events import (
     DoorEvent,
     KNOCK_SOFT, KNOCK_LOUD, SLAM,
@@ -63,10 +62,15 @@ class AccelDetector:
         self.lean_g         = lean_g
         self.lean_duration_s = lean_duration_s
 
-        i2c = busio.I2C(board.SCL, board.SDA)
-        self._lis = adafruit_lis3dh.LIS3DH_I2C(i2c)
-        self._lis.range     = adafruit_lis3dh.RANGE_4_G
-        self._lis.data_rate = adafruit_lis3dh.DATARATE_50_HZ
+        try:
+            import adafruit_lis3dh
+            i2c = busio.I2C(board.SCL, board.SDA)
+            self._lis = adafruit_lis3dh.LIS3DH_I2C(i2c)
+            self._lis.range     = adafruit_lis3dh.RANGE_4_G
+            self._lis.data_rate = adafruit_lis3dh.DATARATE_50_HZ
+        except Exception as e:  # noqa: BLE001
+            print(f"AccelDetector: no I2C device — running without accelerometer ({e})")
+            self._lis = None
 
         self._last_sample = time.monotonic()
         self._in_event    = False
@@ -91,6 +95,10 @@ class AccelDetector:
         Call once at boot while the door is stationary.
         Takes ~1 second.
         """
+        if self._lis is None:
+            print("AccelDetector: skipping calibration (no I2C device)")
+            return
+
         xs, ys, zs = [], [], []
         for _ in range(self.CALIBRATION_N):
             x, y, z = self._lis.acceleration
@@ -112,6 +120,9 @@ class AccelDetector:
         """
         Call every loop tick. Returns a DoorEvent or None.
         """
+        if self._lis is None:
+            return None
+
         now = time.monotonic()
         if now - self._last_sample < self.SAMPLE_INTERVAL:
             return None
@@ -183,6 +194,8 @@ class AccelDetector:
         return f"soft knock {peak_g:.1f}g above rest"
 
     def recent_accel_summary(self):
+        if self._lis is None:
+            return "accelerometer not available"
         if not self._recent_peaks:
             return "no recent vibration"
         avg = sum(self._recent_peaks) / len(self._recent_peaks)

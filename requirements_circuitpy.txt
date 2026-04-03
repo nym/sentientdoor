@@ -1,0 +1,7 @@
+adafruit_requests
+adafruit_lis3dh
+adafruit_ntp
+neopixel
+adafruit_motor
+adafruit_st7789
+adafruit_display_text

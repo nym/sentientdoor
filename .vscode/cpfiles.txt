@@ -1,0 +1,13 @@
+firmware/code.py
+firmware/context.py
+firmware/display.py
+firmware/events.py
+firmware/knock.py
+firmware/lights.py
+firmware/llm.py
+firmware/network.py
+firmware/reflexes.py
+firmware/sensors.py
+firmware/settings.toml
+firmware/state.py
+firmware/tts.py

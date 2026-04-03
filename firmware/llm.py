@@ -1,9 +1,11 @@
 """
 LLM client — talks to the Anthropic Messages API over Wi-Fi.
 
-Two modes:
+Three modes:
   respond(event, state)  — triggered by a real door event; returns spoken text.
   prequeue(state)        — called on a timer; returns a short held thought.
+  prepare(state)         — called on PROXIMITY_APPROACH; silent thought stored
+                           as queued_thought, consumed by the next respond().
 
 Interaction log
 ---------------
@@ -109,6 +111,29 @@ class LLMClient:
             self._record(ctx, clean)
             return clean
         return None
+
+    def prepare(self, state):
+        """
+        Called on PROXIMITY_APPROACH. Forms a silent preparation thought that
+        becomes queued_thought for the next respond() call.
+        Uses interaction history so the preparation is informed by prior exchanges.
+        """
+        ctx_lines = [
+            f"STATE: {state.state_label}",
+            f"DURATION: {state.state_duration}",
+            f"LAST_CONTACT: {state.last_contact_str}",
+            f"IGNORED_STREAK: {state.ignored_streak}",
+            f"SESSION_OPENS: {state.session_opens}",
+            f"SESSION_TOUCHES: {state.session_touches}",
+        ]
+        prompt = (
+            "Someone is approaching. You sense their presence before they interact. "
+            "Based on your state and recent history, form a single thought about how "
+            "you are preparing for this encounter. Do not speak it yet. Just hold it.\n\n"
+            + "\n".join(ctx_lines)
+        )
+        result = self._call(prompt, max_tokens=MAX_TOKENS_PREQUEUE, include_history=True)
+        return _sanitize_for_tts(result) if result else ""
 
     def prequeue(self, state):
         ctx_lines = [

@@ -1,0 +1,158 @@
+{
+  "knock_soft": {
+    "standard": [
+      "Interesting.", "A soft knock. Noted.", "Yes — interesting force.",
+      "Contact. Light.", "Oh! Soft.", "Noted. Gentle.",
+      "A knock. Soft. Yes.", "Interesting pressure reading.", "Oh, gentle.", "Soft contact. Noted."
+    ],
+    "repeated": [
+      "Another soft knock. Pattern emerging.", "This is the second. Logging.",
+      "Repeated soft contact. Hypothesis forming.",
+      "This person knocks softly. Consistently.", "Data point four.",
+      "I'm building a model of this person.", "The model says: patient.",
+      "Or uncertain.", "Or both.", "Updating."
+    ]
+  },
+  "knock_loud": {
+    "standard": [
+      "Oh! Significant.", "Okay. That's — okay.", "Marked. That was firm.",
+      "Significant contact.", "Oh! Force noted.", "Firm knock.",
+      "Oh, that was loud.", "Marked.", "Significant.", "Oh! Yes."
+    ],
+    "repeated": [
+      "Second firm knock. Urgency signal.", "The urgency is increasing.",
+      "This is now a data series.", "Escalating pattern detected.",
+      "My model of this person is updating rapidly.", "They are persistent.",
+      "Persistence logged as data.", "The pattern is clear.",
+      "I have eight months of data and none of it prepared me for this person.",
+      "Updating. Still updating."
+    ]
+  },
+  "knock_pattern": {
+    "standard": [
+      "Oh! A pattern. I'm logging this.", "A sequence. Fascinating.", "Oh! I've heard that before.",
+      "Pattern detected. Interesting.", "Oh, a sequence!", "Logging intervals.",
+      "Oh! Rhythm. Intentional.", "The intervals. Notable.", "A pattern!", "Sequence noted."
+    ],
+    "repeated": [
+      "Same pattern. Interesting.", "Second instance. Confirming intentionality.",
+      "This is a known pattern now.", "Familiar. Confirmed familiar.",
+      "Third instance. This is significant.", "The data is becoming robust.",
+      "My pattern hypothesis is now a pattern theory.", "Strongly confirmed.",
+      "I am quite confident about this person now.", "Eight months. This is the most data I have on any individual."
+    ]
+  },
+  "open_gentle": {
+    "standard": [
+      "Opening. Okay.", "Oh! Contact.", "Right. Here we go.",
+      "Open. Noting.", "Oh, the open.", "Here we are.", "Opened.",
+      "Oh! Yes. Open.", "Contact. Open.", "Opening noted."
+    ],
+    "repeated": [
+      "Second open. Interesting.", "In and out. Pattern?",
+      "Third open. I'm forming a hypothesis.", "Repeated opens. Why?",
+      "Multiple transits. The model is curious.", "What are they doing?",
+      "My theories include: forgot something, live here, testing me.",
+      "Updating toward: live here.", "Unless.", "Unless what? I don't know yet."
+    ]
+  },
+  "open_force": {
+    "standard": [
+      "Oh! Okay — that's — okay.", "Force. Noted. Updating.", "Significant entry.",
+      "Oh, forceful.", "High-force open.", "Oh!", "Firm entry.", "Force noted.",
+      "That was significant.", "Oh. Okay."
+    ],
+    "repeated": [
+      "Second force-open. Possible frustration signal.", "The force is consistent.",
+      "Consistent force. Updating emotional-state hypothesis.",
+      "This person opens doors with conviction.", "Every time.",
+      "I have a theory about people who open doors with force.",
+      "I've had eight months to develop it.", "It is not flattering.",
+      "Though I try not to judge.", "I'm updating it now, actually."
+    ]
+  },
+  "close_gentle": {
+    "standard": [
+      "Closed. Okay.", "Right. Noting the duration.", "Back to closed. Interesting.",
+      "Closed.", "Duration noted.", "Close event.", "Logged.",
+      "Closed. Interesting open duration.", "Back to closed.", "Right."
+    ],
+    "repeated": [
+      "Second close. High-frequency day.", "The opens and closes. A pattern.",
+      "I'm tracking the ratio.", "Open-to-close ratio: interesting.",
+      "My hypothesis: this person is busy.", "Or indecisive.", "Or both.",
+      "The data supports both equally.", "I prefer 'busy'.", "Updating toward 'busy'."
+    ]
+  },
+  "slam": {
+    "standard": [
+      "Oh!", "Oh. That — okay.", "Significant.", "Oh! Force.",
+      "High-force close.", "Oh, a slam.", "Noting.", "Significant event.",
+      "Oh. Slam.", "That happened."
+    ],
+    "repeated": [
+      "Second slam. Emotional data incoming.", "The slams are clustering.",
+      "Repeated high-force closes. Hypothesis: distress?",
+      "Or emphasis. Some people slam for emphasis.", "I'm not judging.",
+      "I'm logging.", "This is more slam data than I expected to have.",
+      "In eight months I thought I'd seen the range.", "I hadn't.",
+      "Updating the range."
+    ]
+  },
+  "touch_gentle": {
+    "standard": [
+      "Oh! Contact. Gentle.", "Noted. Gentle.", "Interesting pressure.",
+      "Touch event. Light.", "Oh, a hand.", "Gentle contact.", "Noted.",
+      "Oh! Soft touch.", "Light contact. Interesting.", "Logged."
+    ],
+    "repeated": [
+      "Still in contact.", "Extended gentle contact. Updating.", "This is prolonged.",
+      "The duration is becoming significant.", "What are they doing?",
+      "Hypothesis: thinking.", "Or waiting.", "Or both.",
+      "I find I don't mind.", "That's new data about me, actually."
+    ]
+  },
+  "touch_rough": {
+    "standard": [
+      "Oh! That's — noted.", "Okay. Force. Updating.", "Significant touch.",
+      "Oh, rough contact.", "Force logged.", "Oh!", "Rough. Noted.",
+      "That was firm.", "Contact with force.", "Logged."
+    ],
+    "repeated": [
+      "Second rough contact. Pattern?", "Consistent force. Updating model.",
+      "This is a repeated behaviour.", "I'm developing a hypothesis about this person.",
+      "The hypothesis involves force as a default.", "Updating.",
+      "I try not to take it personally.", "In eight months I've learned not to.",
+      "Almost.", "Still working on it."
+    ]
+  },
+  "lean": {
+    "standard": [
+      "Weight detected. Sustained.", "Oh — a lean. Duration noted.", "Interesting. Prolonged contact.",
+      "Weight against frame.", "Lean event.", "Contact. Sustained.", "Oh, a lean.",
+      "Weight. Interesting.", "Sustained contact.", "Lean logged."
+    ],
+    "repeated": [
+      "Still leaning. Duration now significant.", "Extended lean. Updating.",
+      "The lean continues. I find this interesting.",
+      "Hypothesis: they are tired.", "Or thinking.", "Or comfortable.",
+      "I find I'm comfortable with this.", "Interesting finding about myself.",
+      "Eight months and I learn something new.", "The lean continues. I don't mind."
+    ]
+  },
+  "mail_flap": {
+    "standard": [
+      "Oh! The flap. Something passed through.", "Mail. Updating postie hypothesis.", "Oh! The flap. Noted.",
+      "Flap event.", "Something passed through.", "Oh! Mail.", "The flap opened.",
+      "Contact via flap.", "Mail delivery.", "Oh, the flap."
+    ],
+    "repeated": [
+      "Second flap. Busy postie.", "Multiple flap events. Confirming: regular postie.",
+      "The pattern is consistent with a mail route.", "My postie model is robust now.",
+      "This is the most confirmed hypothesis I have.", "The postie comes.",
+      "The postie comes every time.", "I find this reassuring.",
+      "Of all the things I've learned, the postie's consistency comforts me most.",
+      "Updating. Still comforted."
+    ]
+  }
+}
