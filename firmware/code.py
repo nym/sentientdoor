@@ -27,6 +27,17 @@ import wifi
 import adafruit_requests
 import supervisor
 
+# Fail fast with a clear message if adafruit_requests is too old.
+# The Session class (needed for native-WiFi HTTP) was added in v2.0.
+# Fix: copy a current adafruit_requests.mpy from the Adafruit CircuitPython
+# Bundle into the /lib folder on the CIRCUITPY drive, then reset.
+if not hasattr(adafruit_requests, "Session"):
+    raise ImportError(
+        "adafruit_requests has no Session class — library is too old. "
+        "Recommend you use circup to install or update adafruit_requests. Alternatively, copy a current "
+        "Bundle into /lib on the CIRCUITPY drive, then reset."
+    )
+
 import network
 from sensors import SensorManager
 from knock   import KnockRecogniser
