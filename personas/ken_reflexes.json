@@ -1,0 +1,46 @@
+{
+  "knock_soft": {
+    "standard": ["Soft knock detected.", "Knock received.", "Light contact noted."],
+    "repeated": ["Repeated soft knocks.", "Soft knock pattern continuing.", "Multiple soft knocks recorded."]
+  },
+  "knock_loud": {
+    "standard": ["Loud knock detected.", "High-force knock noted.", "Forceful knock received."],
+    "repeated": ["Repeated loud knocks.", "Loud knock pattern continuing.", "Multiple loud knocks recorded."]
+  },
+  "knock_pattern": {
+    "standard": ["Pattern knock detected.", "Knock sequence recognised.", "Rhythmic knock pattern logged."],
+    "repeated": ["Pattern knock repeated.", "Same sequence detected again.", "Repeated knock sequence logged."]
+  },
+  "open_gentle": {
+    "standard": ["Door opened gently.", "Open event detected.", "Gentle open recorded."],
+    "repeated": ["Repeated open events.", "Multiple gentle opens recorded.", "Open frequency is elevated."]
+  },
+  "open_force": {
+    "standard": ["Forceful open detected.", "High-force open recorded.", "Door opened with force."],
+    "repeated": ["Repeated forceful opens.", "Forceful open pattern continuing.", "Multiple high-force opens recorded."]
+  },
+  "close_gentle": {
+    "standard": ["Door closed gently.", "Close event detected.", "Gentle close recorded."],
+    "repeated": ["Repeated close events.", "Multiple gentle closes recorded.", "Close frequency is elevated."]
+  },
+  "slam": {
+    "standard": ["Slam detected.", "High-impact close recorded.", "Forceful close event logged."],
+    "repeated": ["Repeated slams detected.", "Slam pattern continuing.", "Multiple high-impact closes recorded."]
+  },
+  "touch_gentle": {
+    "standard": ["Gentle touch detected.", "Light touch recorded.", "Contact noted."],
+    "repeated": ["Extended gentle contact.", "Repeated gentle touch recorded.", "Sustained light contact detected."]
+  },
+  "touch_rough": {
+    "standard": ["Rough touch detected.", "High-force contact recorded.", "Forceful touch noted."],
+    "repeated": ["Repeated rough contact.", "Rough touch pattern continuing.", "Multiple forceful touches recorded."]
+  },
+  "lean": {
+    "standard": ["Lean detected.", "Sustained pressure noted.", "Extended contact registered."],
+    "repeated": ["Continued leaning detected.", "Sustained lean pattern continuing.", "Repeated extended pressure recorded."]
+  },
+  "mail_flap": {
+    "standard": ["Mail flap event detected.", "Flap movement recorded.", "Delivery slot activity noted."],
+    "repeated": ["Repeated flap events.", "Multiple delivery slot events logged.", "Flap activity continuing."]
+  }
+}

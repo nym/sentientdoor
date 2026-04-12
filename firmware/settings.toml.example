@@ -14,13 +14,13 @@ CIRCUITPY_WEB_API_PASSWORD = "changeme"
 ANTHROPIC_API_KEY = "sk-ant-..."
 ELEVENLABS_API_KEY = "your-elevenlabs-key"
 
-# Persona: "unreliable_narrator" | "bouncer" | "pit_piano"
+# Persona: "unreliable_narrator" | "bouncer" | "ken"
 PERSONA = "unreliable_narrator"
 
 # ElevenLabs voice ID for each persona — pick voices from elevenlabs.io/voice-library
 VOICE_ID_UNRELIABLE_NARRATOR = ""
 VOICE_ID_BOUNCER = ""
-VOICE_ID_PIT_PIANO = ""
+VOICE_ID_KEN = ""
 
 # GPIO pins — adjust if your wiring differs
 PIN_REED_SWITCH = "D6"     # Magnetic reed switch: HIGH (pull-up, magnet gone) = door open

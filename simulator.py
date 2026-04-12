@@ -75,7 +75,7 @@ def load_reflexes(persona):
 
 # ── Persona loading ───────────────────────────────────────────────────────────
 
-PERSONAS = ("unreliable_narrator", "bouncer", "pit_piano")
+PERSONAS = ("unreliable_narrator", "bouncer", "ken")
 
 def load_persona(name):
     """Read shared_rules.md + persona file, joined with ---."""
@@ -151,7 +151,7 @@ Commands (case-insensitive, DOOR suffix optional):
   LEAVE / DEPART       — walk away from the door
   WAIT                 — stand still; the door may form a thought
   LOOK / EXAMINE       — inspect the door's current state
-    PERSONA <name>       — switch to unreliable_narrator / bouncer / pit_piano
+    PERSONA <name>       — switch to unreliable_narrator / bouncer / ken
   HELP                 — show this list
   QUIT / EXIT          — leave the simulation
 """

@@ -13,7 +13,7 @@ Set PIN_NEOPIXEL and NEOPIXEL_COUNT in settings.toml to match your strip.
 Persona colours
     unreliable_narrator — sepia brass   (210, 170,  30)
     bouncer             — nightclub blue ( 20,  90, 220)
-    pit_piano           — vaudeville red (230,  60,  30)
+    ken                 — neutral gray   (120, 120, 120)
 
 Servo mouth (optional)
 ----------------------
@@ -40,7 +40,7 @@ import neopixel
 PERSONA_COLORS = {
     "unreliable_narrator": (210, 170,  30),  # sepia brass
     "bouncer":             ( 20,  90, 220),  # nightclub blue
-    "pit_piano":           (230,  60,  30),  # vaudeville red
+    "ken":                 (120, 120, 120),  # neutral gray
 }
 DEFAULT_COLOR = (100, 100, 100)
 

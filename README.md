@@ -26,7 +26,7 @@ The project has a few overlapping aims, none of which are strictly serious:
 
 **To explore stateful, sensor-rich LLM personas.** The door's responses are shaped by everything it knows about its current situation — time since last contact, open/closed duration, accelerometer readings and samples, ignored-person streak, common 5-8 note knocks. This makes it behave differently at 9am on a busy Monday than at 6pm on a quiet Friday, without any explicit scripting. It also should be 'ready to go' in the sense of queued requests for an update on it's state according to the LLM. In other words, it's been thinking about what to say even before it's disturbed.
 
-**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Unreliable Narrator, who constructs confident theories from partial evidence and revises without apology. The Bouncer, who treats every approach as queue management and boundary enforcement. The Cartoon Comedic Pit Piano, who turns every knock into vaudeville timing and over-the-top musical commentary.
+**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Unreliable Narrator, who constructs confident theories from partial evidence and revises without apology. The Bouncer, who treats every approach as queue management and boundary enforcement. Ken, who is intentionally personality-free and as terse as possible while still being helpful.
 
 **To build something that rewards attention.** The door remembers the 9:14 person's confident grip with the accelerometer samples. It notes the slam. It counts the ignored visits. If you pay attention to it, it will have paid more attention than you expected. The goal is to demonstrate emergent behaviour wherever possible.
 
@@ -42,8 +42,8 @@ Location: front door of a family home with detective-novel energy. Forms sharp c
 ### The Bouncer
 Location: a packed late-night venue with a line out the door. Preferred state: closed and controlled. Speaks in short, firm rulings; tracks behavior; allows no nonsense. Reads force, rhythm, and repetition as social intent.
 
-### The Cartoon Comedic Pit Piano
-Location: orchestra pit beneath an overacted stage production. Preferred state: dramatically involved. Converts sensor events into comic beats, rimshot energy, and physical-comedy narration while still obeying all core door constraints.
+### Ken
+Location: an ordinary service hallway with no narrative framing. Preferred state: neutral. Responds with concise, practical observations only. No flourish, no speculation, no vibe.
 
 _
 
@@ -137,7 +137,7 @@ Switch persona with `--persona bouncer` or mid-session with `PERSONA bouncer`. N
 | `APPROACH` / `LEAVE` | walk up to or away from the door |
 | `WAIT` | stand still; the door forms an unprompted thought |
 | `LOOK` | inspect the door's current state |
-| `PERSONA <name>` | switch to unreliable_narrator / bouncer / pit_piano |
+| `PERSONA <name>` | switch to unreliable_narrator / bouncer / ken |
 | `HELP` / `QUIT` | help or exit |
 
 ---
@@ -145,7 +145,7 @@ Switch persona with `--persona bouncer` or mid-session with `PERSONA bouncer`. N
 ## Repository Structure
 
 ```
-/personas          — The three LLM system prompts (Unreliable Narrator, Bouncer, Pit Piano)
+/personas          — The three LLM system prompts (Unreliable Narrator, Bouncer, Ken)
 /firmware          — CircuitPython code for the Feather: sensor polling, event dispatch, TTS
 /docs              — Wiring diagrams, mounting notes, enclosure suggestions
 simulator.py       — Desktop text adventure demo (no hardware required)
@@ -178,7 +178,7 @@ You only need a `VOICE_ID_*` for the persona(s) you intend to use. Leave the oth
 
 | Setting | Default | Notes |
 |---|---|---|
-| `PERSONA` | `unreliable_narrator` | `unreliable_narrator` / `bouncer` / `pit_piano` |
+| `PERSONA` | `unreliable_narrator` | `unreliable_narrator` / `bouncer` / `ken` |
 | `NTP_TZ_OFFSET` | `0` | Hours offset from UTC, e.g. `-5` for US Eastern, `1` for UK BST |
 | `SLAM_THRESHOLD_G` | `3.0` | G-force above rest to classify as a slam. Raise if bumps in the wall trigger it. |
 | `KNOCK_THRESHOLD_G` | `0.5` | G-force above rest to register a knock. Lower if the door is heavy. |
