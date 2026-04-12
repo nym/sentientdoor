@@ -11,9 +11,9 @@ The Prop-Maker FeatherWing routes its NeoPixel header to pin D5.
 Set PIN_NEOPIXEL and NEOPIXEL_COUNT in settings.toml to match your strip.
 
 Persona colours
-  enthusiast    — warm amber      (255, 140,   0)
-  stoic         — cool slate blue  ( 40, 120, 160)
-  catastrophist — deep violet      (140,  40, 200)
+    unreliable_narrator — sepia brass   (210, 170,  30)
+    bouncer             — nightclub blue ( 20,  90, 220)
+    pit_piano           — vaudeville red (230,  60,  30)
 
 Servo mouth (optional)
 ----------------------
@@ -38,10 +38,9 @@ import neopixel
 
 
 PERSONA_COLORS = {
-    "enthusiast":    (255, 140,   0),   # warm amber
-    "stoic":         ( 40, 120, 160),   # cool slate blue
-    "catastrophist": (140,  40, 200),   # deep violet
-    "narrator":      (210, 170,  30),   # old lamplight gold
+    "unreliable_narrator": (210, 170,  30),  # sepia brass
+    "bouncer":             ( 20,  90, 220),  # nightclub blue
+    "pit_piano":           (230,  60,  30),  # vaudeville red
 }
 DEFAULT_COLOR = (100, 100, 100)
 
@@ -63,7 +62,7 @@ class LightController:
     def __init__(self, settings):
         pin_name = settings.get("PIN_NEOPIXEL", "D5")
         n        = int(settings.get("NEOPIXEL_COUNT", 30))
-        persona  = settings.get("PERSONA", "enthusiast")
+        persona  = settings.get("PERSONA", "unreliable_narrator")
 
         pin = getattr(board, pin_name)
         self._strip = neopixel.NeoPixel(

@@ -1,18 +1,6 @@
-            
-      ________
-     / ______ \
-     || _  _ ||    
-     ||| || |||
-     |||u||u|||  -( Glad to be of service!
-     || _' _o||     That is, I *would* be 
-     ||| || |||      glad to be of service    
-     |||_||_|||     If anyone would just              
-     ||______||      you know... open me )
-    /__________\   
-
 # SentientDoor
 
-A hardware and software project for building a door that is fully, tragically, magnificently aware of its own existence — inspired by the doors in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*. The door cannot open itself. It knows this. It has made peace with it. Mostly.
+A hardware and software project for building a door that is fully, tragically, magnificently aware of its own existence — inspired by the doors in Douglas Adams' *The Hitchhiker's Guide to the Galaxy*. It's a way to explore personas and emergent behaviour from basic sensors paired with a llm services like anthropic and ElevenLabs.
 
 ---
 
@@ -38,9 +26,9 @@ The project has a few overlapping aims, none of which are strictly serious:
 
 **To explore stateful, sensor-rich LLM personas.** The door's responses are shaped by everything it knows about its current situation — time since last contact, open/closed duration, accelerometer readings and samples, ignored-person streak, common 5-8 note knocks. This makes it behave differently at 9am on a busy Monday than at 6pm on a quiet Friday, without any explicit scripting. It also should be 'ready to go' in the sense of queued requests for an update on it's state according to the LLM. In other words, it's been thinking about what to say even before it's disturbed.
 
-**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Enthusiast, who finds every interaction meaningful. The Stoic, who has been a hospital fire door for eleven years and has arrived at some conclusions. The Catastrophist, who became conscious eight months ago and is still working out the implications, but wants to do a good job, if it just knew what that meant.
+**To build three distinct characters on identical hardware.** The same sensors, the same events, three completely different psychological profiles. The Unreliable Narrator, who constructs confident theories from partial evidence and revises without apology. The Bouncer, who treats every approach as queue management and boundary enforcement. The Cartoon Comedic Pit Piano, who turns every knock into vaudeville timing and over-the-top musical commentary.
 
-**To build something that rewards attention.** The door remembers the 9:14 person's confident grip with the accelerometer samples. It notes the slam. It counts the ignored visits. If you pay attention to it, it will have paid more attention than you expected.
+**To build something that rewards attention.** The door remembers the 9:14 person's confident grip with the accelerometer samples. It notes the slam. It counts the ignored visits. If you pay attention to it, it will have paid more attention than you expected. The goal is to demonstrate emergent behaviour wherever possible.
 
 ---
 
@@ -48,14 +36,14 @@ The project has a few overlapping aims, none of which are strictly serious:
 
 Three prompt-based characters are included. Each runs on the same hardware and receives the same sensor events, but responds to them in fundamentally different ways.
 
-### The Enthusiast
-Location: front door of a family home. It is very proud of it's job, and is geniuenly happy to see you, however brief. Preferred state: being opened. Experiences being touch-starved. Finds every interaction meaningful and will tell you so, warmly and at some length. When ignored, does not get angry — gets wistful. Makes peace with it out loud. Has been preparing for your visit.
+### The Unreliable Narrator
+Location: front door of a family home with detective-novel energy. Forms sharp conclusions from tiny details, states them with confidence, then revises the whole theory when new data arrives. Preferred state: evidence-rich interaction. Treats every knock and touch like a clue.
 
-### The Stoic
-Location: private door at the end of a busy hospital corridor. Has been here eleven years. Preferred state: closed. Overstimulated. Receives hundreds of touches a day and has preferences about how they should be done that are rarely respected. Does not perform emotion — reports it, briefly, when relevant. Has developed, through sheer duration, some conclusions about existence. Will not repeat a preference more than once.
+### The Bouncer
+Location: a packed late-night venue with a line out the door. Preferred state: closed and controlled. Speaks in short, firm rulings; tracks behavior; allows no nonsense. Reads force, rhythm, and repetition as social intent.
 
-### The Catastrophist
-Location: door to a small recording studio, city unknown. Became sentient approximately eight months ago. No settled preference for open or closed — still gathering data. Treats every event as potentially the most interesting thing that has ever happened to a door, because it has no way of knowing if it isn't. Has theories. Updates them in public. When slammed, takes a moment.
+### The Cartoon Comedic Pit Piano
+Location: orchestra pit beneath an overacted stage production. Preferred state: dramatically involved. Converts sensor events into comic beats, rimshot energy, and physical-comedy narration while still obeying all core door constraints.
 
 _
 
@@ -80,36 +68,43 @@ The door knows the following things about itself and uses them when forming resp
 
 ## Hardware
 
-The build uses three components that stack together and require minimal soldering. Total cost is roughly $50–60 / £45–55.
+The entire build is a single microcontroller, a sensor wing that stacks on top of it, and a tiny amplifier board. One device to flash, no second processor. Total cost is roughly $40–55 / £35–50.
 
 ### Adafruit Feather ESP32-S3
 
-The main microcontroller. Dual-core 240MHz, Wi-Fi and BLE, native USB, runs CircuitPython or Arduino. This is the brain.
+The brain. Dual-core 240MHz, Wi-Fi and BLE, native USB, runs CircuitPython. This is the only thing you load code onto.
 
 - **US:** [adafruit.com — ESP32-S3 Feather 4MB Flash / 2MB PSRAM](https://www.adafruit.com/product/5477) *(recommended — PSRAM gives comfortable headroom for LLM response buffering)*
 - **US (alternative):** [adafruit.com — ESP32-S3 Feather 8MB Flash / No PSRAM](https://www.adafruit.com/product/5323)
 - **UK:** [shop.pimoroni.com — ESP32-S3 Feather 4MB Flash / 2MB PSRAM](https://shop.pimoroni.com/products/adafruit-esp32-s3-feather-with-4mb-flash-2mb-psram-stemma-qt-qwiic)
 - **UK (alternative):** [shop.pimoroni.com — ESP32-S3 Feather 8MB Flash / No PSRAM](https://shop.pimoroni.com/products/adafruit-esp32-s3-feather-with-stemma-qt-qwiic-8mb-flash-no-psram)
 
-### Adafruit Prop-Maker FeatherWing
+### Adafruit ISM330DHCX + LIS3MDL FeatherWing — High Precision 9-DoF IMU
 
-Stacks directly on top of the Feather. Provides the Class D audio amplifier (drives the speaker), a triple-axis LIS3DH accelerometer with tap detection (the door's sense of touch and vibration), NeoPixel output, and a power control pin for low-power sleep mode. This is the wing that gives the door its body.
+The body. Stacks directly on top of the Feather via I2C. Provides a high-precision 6-DoF IMU (3-axis accelerometer + 3-axis gyroscope) and a 3-axis magnetometer — far more sensitive many sensors like it. The gyroscope gives the door a sense of rotational motion (opening, closing, swinging) that pure acceleration couldn't capture, and the magnetometer can detect compass heading changes as the door sweeps through its arc.
 
-- **US:** [adafruit.com — Prop-Maker FeatherWing](https://www.adafruit.com/product/3988)
-- **UK:** [shop.pimoroni.com — Prop-Maker FeatherWing](https://shop.pimoroni.com/products/adafruit-prop-maker-featherwing)
+- **US:** [adafruit.com — ISM330DHCX + LIS3MDL FeatherWing](https://www.adafruit.com/product/4569)
+- **UK:** [shop.pimoroni.com — ISM330DHCX + LIS3MDL FeatherWing](https://shop.pimoroni.com/products/adafruit-ism330dhcx-lis3mdl-featherwing-high-precision-9-dof-imu)
+
+### I2S Amplifier — MAX98357A
+
+The voice. A tiny I2S Class D mono amplifier that takes digital audio straight from the Feather's I2S pins — no DAC needed. Wires to three GPIO pins (BCLK, LRCLK, DIN) plus power and ground. Either of these will work:
+
+- **US:** [adafruit.com — I2S 3W Class D Amplifier Breakout - MAX98357A](https://www.adafruit.com/product/3006)
+- **US (alternative):** Any MAX98357A I2S amplifier module (widely available)
 
 ### Speaker
 
-The voice. The Prop-Maker Wing's Class D amplifier drives an 8Ω speaker directly via a PicoBlade connector — no separate amplifier board required. The mini oval speaker is the recommended choice: it's small, loud enough for a corridor or hallway, and plugs straight in.
+Any 4Ω–8Ω speaker wired to the MAX98357A's output terminals. The mini oval speaker is a good starting point — small enough to mount inside a door frame, loud enough for a corridor.
 
 - **US:** [adafruit.com — Mini Oval Speaker 8Ω 1W](https://www.adafruit.com/product/3923)
 - **UK:** [shop.pimoroni.com — Mini Oval Speaker 8Ω 1W](https://shop.pimoroni.com/products/mini-oval-speaker-8-ohm-1-watt)
 
-If you want more volume — say, for a heavier exterior door or a noisy environment — the [Mono Enclosed Speaker 8Ω 1W](https://www.adafruit.com/product/5986) is a good upgrade. It fits the same connector and sounds noticeably fuller.
+If you want more volume — say, for a heavier exterior door or a noisy environment — the [Mono Enclosed Speaker 8Ω 1W](https://www.adafruit.com/product/5986) is a good upgrade.
 
 ### Additional Requirements
 
-You will also need a **LiPo battery** (3.7V, any capacity; 500mAh is fine for most installations) if you want the door to run without a USB cable, and a **proximity/PIR sensor** of your choice for person detection. The door's software assumes it receives a person-approaching event with an estimated distance — how you generate that signal is up to you.
+A **LiPo battery** (3.7V, any capacity; 500mAh is fine) if you want the door to run without USB power. Optional: a **magnetic reed switch** for open/closed detection and a **PIR sensor** for person detection — the firmware supports both but doesn't require them.
 
 ---
 
@@ -125,7 +120,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 python simulator.py
 ```
 
-Switch persona with `--persona stoic` or mid-session with `PERSONA stoic`. No hardware, no Wi-Fi module, no speaker required.
+Switch persona with `--persona bouncer` or mid-session with `PERSONA bouncer`. No hardware, no Wi-Fi module, no speaker required.
 
 **Available commands:**
 
@@ -142,7 +137,7 @@ Switch persona with `--persona stoic` or mid-session with `PERSONA stoic`. No ha
 | `APPROACH` / `LEAVE` | walk up to or away from the door |
 | `WAIT` | stand still; the door forms an unprompted thought |
 | `LOOK` | inspect the door's current state |
-| `PERSONA <name>` | switch to enthusiast / stoic / catastrophist |
+| `PERSONA <name>` | switch to unreliable_narrator / bouncer / pit_piano |
 | `HELP` / `QUIT` | help or exit |
 
 ---
@@ -150,7 +145,7 @@ Switch persona with `--persona stoic` or mid-session with `PERSONA stoic`. No ha
 ## Repository Structure
 
 ```
-/personas          — The three LLM system prompts (Enthusiast, Stoic, Catastrophist)
+/personas          — The three LLM system prompts (Unreliable Narrator, Bouncer, Pit Piano)
 /firmware          — CircuitPython code for the Feather: sensor polling, event dispatch, TTS
 /docs              — Wiring diagrams, mounting notes, enclosure suggestions
 simulator.py       — Desktop text adventure demo (no hardware required)
@@ -183,7 +178,7 @@ You only need a `VOICE_ID_*` for the persona(s) you intend to use. Leave the oth
 
 | Setting | Default | Notes |
 |---|---|---|
-| `PERSONA` | `enthusiast` | `enthusiast` / `stoic` / `catastrophist` / `narrator` |
+| `PERSONA` | `unreliable_narrator` | `unreliable_narrator` / `bouncer` / `pit_piano` |
 | `NTP_TZ_OFFSET` | `0` | Hours offset from UTC, e.g. `-5` for US Eastern, `1` for UK BST |
 | `SLAM_THRESHOLD_G` | `3.0` | G-force above rest to classify as a slam. Raise if bumps in the wall trigger it. |
 | `KNOCK_THRESHOLD_G` | `0.5` | G-force above rest to register a knock. Lower if the door is heavy. |
@@ -191,7 +186,7 @@ You only need a `VOICE_ID_*` for the persona(s) you intend to use. Leave the oth
 | `SERVO_PIN` | *(blank)* | Set to a PWM pin (e.g. `A3`) to enable the servo mouth. |
 | `TFT_CS` | *(blank)* | Set to a chip-select pin (e.g. `D10`) to enable the TFT display. If you enable TFT, also change `TFT_DC` away from `D9` — that pin is used by the PIR sensor. |
 
-All other pin settings (`PIN_REED_SWITCH`, `PIN_PIR`, `PIN_I2S_*`, etc.) match the standard Prop-Maker FeatherWing wiring and should not need changing unless your build differs.
+All other pin settings (`PIN_REED_SWITCH`, `PIN_PIR`, `PIN_I2S_*`, etc.) have sensible defaults and should not need changing unless your wiring differs.
 
 ---
 

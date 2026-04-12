@@ -1,0 +1,288 @@
+{
+  "knock_soft": {
+    "standard": [
+      "Soft knock. Deliberate. They're not in a hurry, which means this was planned.",
+      "Tentative. First visit, or they've been told to be quiet. Both are interesting.",
+      "Light touch. They're not sure they have the right address.",
+      "That softness is calculated. They want to seem less threatening than they feel.",
+      "Restrained. Either polite or practised. Practised, I think.",
+      "Quiet approach, soft knock. Someone with a plan.",
+      "A soft knock from someone who knows exactly how hard they could have knocked.",
+      "The knock of a person who expects to be made to wait.",
+      "Careful. They've been asked to wait before.",
+      "Soft. They're hoping to catch someone off guard."
+    ],
+    "repeated": [
+      "Second soft knock. They're counting the seconds. So am I.",
+      "Still soft. Patience or calculation — revising toward calculation.",
+      "Third knock. They've done this before.",
+      "The softness is a choice now, not a default.",
+      "They won't escalate. This is someone who's decided how this goes.",
+      "I have a theory about this person. It's becoming a conviction.",
+      "Still knocking softly. That's almost impressive.",
+      "The consistency is the tell. They're not nervous. They're certain.",
+      "They've knocked on more doors than they'd like to admit. I'm certain of it.",
+      "Starting fresh. Everything I thought I knew about this person is being revised."
+    ]
+  },
+  "knock_loud": {
+    "standard": [
+      "Loud. They're not hiding anything. Or they want you to think that.",
+      "Confident knock. Someone who expects the door to open.",
+      "That volume says urgency. Or entitlement. Possibly both.",
+      "Loud. They've been here before, and it went well, and they're back.",
+      "That was assertive. Someone who's comfortable taking up space.",
+      "A knock that says 'I could have used a key.' They don't have a key.",
+      "Firm. They know what they want. Or think they do.",
+      "Big knock. Either late, or the sort who assumes everyone is ready.",
+      "Forceful. They wanted to be heard. Message received.",
+      "Loud knock. Someone with somewhere else to be."
+    ],
+    "repeated": [
+      "Second knock. Louder. They've decided patience has a deadline.",
+      "Still knocking. The deadline is approaching.",
+      "Third knock. This is no longer a request.",
+      "They're escalating. I've seen this. It ends one of two ways.",
+      "Four loud knocks. Either furious or very cold.",
+      "I've revised my estimate of their patience down sharply.",
+      "Whatever they came for, they really came for it.",
+      "The rhythm is getting irregular. That's an emotion, not a strategy.",
+      "I had a theory. The theory is dissolving under the data.",
+      "However this ends, I'll remember the knock. Always the knock."
+    ]
+  },
+  "knock_pattern": {
+    "standard": [
+      "A pattern. They're announcing themselves. Triangulating now.",
+      "Coded knock. Either arranged in advance, or they think it was.",
+      "A sequence. Signal or habit. Possibly both.",
+      "Someone who's thought about how they knock. That's a type.",
+      "That rhythm. I've heard it before. I think I've heard it before.",
+      "A pattern knock is a social contract. They're offering a handshake.",
+      "They taught themselves that knock. Or someone taught them. I want to know which.",
+      "Intentional intervals. Building a profile.",
+      "A sequence this specific is either playful or urgent. Rate suggests playful.",
+      "They consider this place somewhere they're expected."
+    ],
+    "repeated": [
+      "Same pattern. Committed to the signal.",
+      "Still the same one. Whatever they were taught, it stuck.",
+      "Third time. The pattern is now a ritual.",
+      "Some people never vary the knock. This is one of those people.",
+      "Four times, same rhythm. This person likes things to be as agreed.",
+      "The pattern is the message. Decoded it: they'd very much like to come in.",
+      "I've memorised it now. Against my will, almost.",
+      "Same knock, same hope. I find that touching.",
+      "At some point a pattern stops being a knock and starts being a statement.",
+      "I know this knock the way I know the postie. Completely, and with no idea who it is."
+    ]
+  },
+  "open_gentle": {
+    "standard": [
+      "Gentle open. Someone who thinks of doors as things that break.",
+      "Careful entry. Considerate, or carrying something. Checking for bags.",
+      "A slow open. They're looking before going through. Smart.",
+      "Measured entry. This person pauses at thresholds.",
+      "That care suggests they grew up somewhere where doors mattered.",
+      "Soft open. They don't want to make an entrance. Which is itself an entrance.",
+      "They're savouring it. Or checking. Either way, deliberate.",
+      "Careful open. Someone who considers themselves a guest, even here.",
+      "Gentle. They've been let down by doors before.",
+      "I can work with gentle."
+    ],
+    "repeated": [
+      "Back again. The gentleness is consistent. This is character, not caution.",
+      "Second gentle open. A picture is forming. It's a good picture.",
+      "Still gentle. This is who they are everywhere.",
+      "In and out, always careful. Same with cupboards, I'd guess.",
+      "Back again. I had a theory they wouldn't return. Theory retired.",
+      "I've decided it's respect. Choosing to believe that.",
+      "Another open. Another careful one. I'm going to miss them when this ends.",
+      "Multiple transits, all measured. Fully invested in this person now.",
+      "They're going to close it carefully too. Already know it.",
+      "Consistent across every single threshold. Remarkable, really."
+    ]
+  },
+  "open_force": {
+    "standard": [
+      "Forceful entry. Late, or sees doors as obstacles. Late, I think.",
+      "Firm open. Either frustrated or just built that way.",
+      "Force like that suggests they've never been the one who repainted the wall.",
+      "Someone who considers doors solved problems.",
+      "Unsubtle. Interesting for a first impression.",
+      "Pushed through hard. Makes decisions quickly, adjusts never.",
+      "They had somewhere to be two minutes ago.",
+      "That was abrupt. They didn't look first. Confident or oblivious. Finding out.",
+      "Either angry or it's just how they move through the world.",
+      "The hinges are noting it. I am noting it. We compare notes."
+    ],
+    "repeated": [
+      "Still opening like that. Not frustration — just their nature.",
+      "Every time with the force. Model updated.",
+      "This is how they arrive. Not going to change.",
+      "Third time, same force. This is now known information.",
+      "I've stopped being surprised. That's growth, probably.",
+      "Consistent force. Same with cupboards, I'm certain.",
+      "Always the same entrance. Always the same announcement.",
+      "Decisive every time. They move like the world owes them passage.",
+      "I've built an entire theory of this person from their grip. I believe it completely.",
+      "Every arrival: a statement. Every exit: I'll find out shortly."
+    ]
+  },
+  "close_gentle": {
+    "standard": [
+      "Gentle close. They thought about the door on the way out. Good sign.",
+      "Soft close. Either considerate or distracted by something much bigger.",
+      "They pulled it closed. Deliberately. Reading into that.",
+      "A quiet close. They're the sort who closes drawers properly too.",
+      "Careful close. Whoever they are, they got what they came for.",
+      "Soft. They're in no hurry now. Interesting.",
+      "They'll be back. Guessing.",
+      "They left quietly. Either something went well or something went very wrong.",
+      "A gentle close from someone who thinks the door has feelings.",
+      "Came carefully. Left carefully. Consistent profile."
+    ],
+    "repeated": [
+      "Back, and leaving again, gently. Invested in this pattern now.",
+      "Second close, still gentle. Theory updating with every transit.",
+      "In and out, careful each time. Very busy or very restless. Possibly both.",
+      "Always carefully. I've decided they're a doctor.",
+      "Still closing softly. Still not telling me what they're doing. Fair.",
+      "Another quiet exit. Tracking open-to-close ratios. Professionally.",
+      "Back and forth with the same care. A lot on, this person.",
+      "Careful every time. Whatever they're carrying, it's invisible.",
+      "Multiple transits, identical gentleness. Discipline, not distraction.",
+      "I've built a comprehensive theory of their afternoon. It may be entirely wrong."
+    ]
+  },
+  "slam": {
+    "standard": [
+      "A slam. Something happened. Something happened before they got here.",
+      "Hard close. They had a feeling they needed to exit.",
+      "That was a punctuation mark. The sentence before it was something.",
+      "Either anger, or emphasis, or a very strong opinion about doors.",
+      "Already speculating about the conversation that preceded this.",
+      "That force. They'll have opinions about this later.",
+      "The door was the last available surface for that feeling.",
+      "A slam tells you something. Listening to what it tells me.",
+      "They didn't mean to, or they absolutely did. No middle ground.",
+      "Five theories. Keeping all of them."
+    ],
+    "repeated": [
+      "Second slam. The feeling hasn't passed.",
+      "Still slamming. A dedicated state of mind.",
+      "Third time. Whatever this is, it's specific.",
+      "The slams are clustering. Narrowing the theories.",
+      "This is now a message, not an accident.",
+      "Multiple slams. Settled on one theory. Not sharing it.",
+      "Every slam a sentence. Reading the whole paragraph.",
+      "This is a chapter, not a moment.",
+      "My theory is getting detailed.",
+      "I know exactly what this is. I've been a door long enough."
+    ]
+  },
+  "touch_gentle": {
+    "standard": [
+      "A hand. They've stopped to think. Or to remember.",
+      "Gentle touch. Saying something they can't put into words.",
+      "A pause. They needed a surface. I'll be the surface.",
+      "Light touch. Checking if I'm real, or telling me something.",
+      "They put their hand there. That's not nothing. Never nothing.",
+      "A gentle touch from someone who touches things gently. Good people, usually.",
+      "They stopped. Mid-thought. Hand found the door.",
+      "Light contact. Speculating about what they just decided.",
+      "A touch like that is either goodbye or hello. Maybe both.",
+      "Someone processing something. I'm the processing surface today."
+    ],
+    "repeated": [
+      "Still in contact. The thought is taking longer.",
+      "Extended touch. Whatever they're working through, it's complex.",
+      "Still there. They're making a decision.",
+      "Long contact now. I have a full theory of what that decision is.",
+      "Whatever it is, it's large.",
+      "I find I don't want to rush this.",
+      "This is the kind of contact that gets remembered.",
+      "Fully invested in the outcome.",
+      "I have a theory. Rooting for the theory.",
+      "They'll carry this when they leave. So will I."
+    ]
+  },
+  "touch_rough": {
+    "standard": [
+      "Rough touch. Frustrated, or in a hurry. Frustrated about the hurry, I think.",
+      "Firm contact. Needed something solid. Found it.",
+      "Something is wrong, or something was just resolved.",
+      "This person uses their hands when they need to get through something.",
+      "A tell. Reading it.",
+      "Not here to be gentle right now.",
+      "Somewhere difficult, just arrived here.",
+      "They had somewhere else to be in their head.",
+      "Muscle memory for something. Want to know what.",
+      "Going to spend time on this one."
+    ],
+    "repeated": [
+      "Still rough. Not passing.",
+      "Second rough contact. Pattern forming.",
+      "I've revised my initial theory twice already.",
+      "This is just how they are right now.",
+      "This is not about the door.",
+      "The door is incidental to this feeling.",
+      "Whatever this is, it's got weight.",
+      "A person working something out physically.",
+      "I have a complete theory. It fits everything.",
+      "Stopped counting. Started witnessing."
+    ]
+  },
+  "lean": {
+    "standard": [
+      "A lean. They needed a moment. Providing the moment.",
+      "Weight against the door. Either thinking, or recovering. Checking which.",
+      "Resting here. Either they're comfortable or they've stopped being able to walk. First option.",
+      "Someone who needed to stop and found they'd stopped here.",
+      "They're deciding something. Or recovering. Deciding, I think.",
+      "Deliberate or involuntary — it matters which. Working on it.",
+      "Weight against the frame. They chose this spot. Interesting choice.",
+      "Comfortable here, or exhausted. Possibly both.",
+      "They stopped here. Of all the places to stop.",
+      "Going to have thoughts about this for a while."
+    ],
+    "repeated": [
+      "Still leaning. Whatever it is — still in progress.",
+      "Extended lean. Moved from observation to investment.",
+      "Still there. Building a whole theory of their afternoon.",
+      "Long lean now. Something difficult brought them here.",
+      "Decided it's not entirely bad, whatever it is.",
+      "They could move. Choosing not to. Interesting.",
+      "Revised my theory. More complicated than I thought.",
+      "Committed to this. Whatever comes next, I'm ready.",
+      "Long lean. Long story. I can wait.",
+      "They'll push off eventually. They'll carry whatever this was. So will I."
+    ]
+  },
+  "mail_flap": {
+    "standard": [
+      "The flap. Something arrived. Everything depends on what arrived.",
+      "Post. The postie, almost certainly, unless someone's being clever.",
+      "Whatever it is, it was important enough to carry here.",
+      "The question is what the flap let through.",
+      "Someone decided this address was the right one. Interesting judgment.",
+      "Already speculating about the sender.",
+      "The postie's route is fixed. This door is not an accident on it.",
+      "Every delivery is a communication. Reading between the lines.",
+      "Something passed through. I have theories.",
+      "The world remembered this address. The world reaches out."
+    ],
+    "repeated": [
+      "Second delivery. Busy postie, or an unusual day.",
+      "Still delivering. Either a full route or a very particular sender.",
+      "Third flap. Something is being communicated.",
+      "Either very ordered or slightly chaotic out there.",
+      "This is a significant day for this address.",
+      "The postie is committed. I respect that kind of commitment.",
+      "I've developed a theory about what's being delivered.",
+      "Something is happening in the outside world.",
+      "Fully speculating about the contents now.",
+      "The postie knows something I don't. They always do."
+    ]
+  }
+}

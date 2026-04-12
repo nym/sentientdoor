@@ -70,7 +70,7 @@ class TTSPlayer:
             raise ValueError("ELEVENLABS_API_KEY is missing from settings.toml")
         self._api_key = api_key
 
-        persona        = settings.get("PERSONA", "enthusiast")
+        persona        = settings.get("PERSONA", "unreliable_narrator")
         self._voice_id = settings.get(f"VOICE_ID_{persona.upper()}", "")
 
         pwr_pin = getattr(board, settings.get("PIN_POWER_ENABLE", "A0"))

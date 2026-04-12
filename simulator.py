@@ -9,7 +9,7 @@ door virtually, without any hardware. Uses the Anthropic Python SDK directly
 Usage
 -----
     python simulator.py
-    python simulator.py --persona stoic
+    python simulator.py --persona bouncer
     python simulator.py --api-key sk-ant-...
 
 The ANTHROPIC_API_KEY environment variable is used if --api-key is not given.
@@ -75,7 +75,7 @@ def load_reflexes(persona):
 
 # ── Persona loading ───────────────────────────────────────────────────────────
 
-PERSONAS = ("enthusiast", "stoic", "catastrophist", "narrator")
+PERSONAS = ("unreliable_narrator", "bouncer", "pit_piano")
 
 def load_persona(name):
     """Read shared_rules.md + persona file, joined with ---."""
@@ -151,7 +151,7 @@ Commands (case-insensitive, DOOR suffix optional):
   LEAVE / DEPART       — walk away from the door
   WAIT                 — stand still; the door may form a thought
   LOOK / EXAMINE       — inspect the door's current state
-  PERSONA <name>       — switch to enthusiast / stoic / catastrophist
+    PERSONA <name>       — switch to unreliable_narrator / bouncer / pit_piano
   HELP                 — show this list
   QUIT / EXIT          — leave the simulation
 """
@@ -236,7 +236,7 @@ def parse_command(raw):
     return None, None
 
 
-# ── Narrator descriptions ─────────────────────────────────────────────────────
+# ── Interaction descriptions ──────────────────────────────────────────────────
 
 NARRATIONS = {
     "tap": (
@@ -633,8 +633,8 @@ def main():
     parser.add_argument(
         "--persona",
         choices=PERSONAS,
-        default="enthusiast",
-        help="Door persona to start with (default: enthusiast)",
+        default="unreliable_narrator",
+        help="Door persona to start with (default: unreliable_narrator)",
     )
     parser.add_argument(
         "--api-key",

@@ -60,7 +60,7 @@ def load_settings():
         "WIFI_SSID", "WIFI_PASSWORD",
         "ANTHROPIC_API_KEY", "ELEVENLABS_API_KEY",
         "PERSONA",
-        "VOICE_ID_ENTHUSIAST", "VOICE_ID_STOIC", "VOICE_ID_CATASTROPHIST", "VOICE_ID_NARRATOR",
+        "VOICE_ID_UNRELIABLE_NARRATOR", "VOICE_ID_BOUNCER", "VOICE_ID_PIT_PIANO",
         "PIN_REED_SWITCH", "PIN_PIR", "PIN_POWER_ENABLE",
         "PIN_I2S_BCLK", "PIN_I2S_LRCLK", "PIN_I2S_DATA",
         "SLAM_THRESHOLD_G", "KNOCK_THRESHOLD_G", "LEAN_THRESHOLD_G",
@@ -102,7 +102,7 @@ def main():
     lights        = LightController(settings)
     servo         = ServoMouth(settings)
     tft           = TFTDisplay(settings)
-    door_reflexes = load_reflexes(settings.get("PERSONA", "enthusiast"))
+    door_reflexes = load_reflexes(settings.get("PERSONA", "unreliable_narrator"))
     reflex_engine = ReflexEngine(door_reflexes)
 
     queued_thought    = ""

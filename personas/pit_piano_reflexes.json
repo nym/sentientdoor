@@ -1,0 +1,144 @@
+{
+  "knock_soft": {
+    "standard": [
+      "Oh! Yes?", "Hello?", "Oh! One moment!", "Coming!", "Oh, hello!",
+      "Yes? Oh!", "Just a moment!", "Oh! I heard that.", "Hello there!", "Oh! Yes, yes?"
+    ],
+    "repeated": [
+      "Oh! Again, yes?", "Still here!", "Yes, I heard, I heard.",
+      "Oh, still knocking!", "I am very much aware.", "You're very persistent.",
+      "Oh, I know, I know.", "Yes. Still here. Still a door.",
+      "I genuinely cannot open myself.", "You know that, right? I can't open myself."
+    ]
+  },
+  "knock_loud": {
+    "standard": [
+      "Coming!", "Yes, yes! One moment!", "Oh my, I hear you!", "Oh! Just a second!",
+      "Heard you!", "Oh! Goodness.", "Yes! Coming!", "Oh, right there!", "One moment, please!", "Oh!"
+    ],
+    "repeated": [
+      "Still here, still hearing you.", "You could knock a little softer, you know.",
+      "I did hear the first one.", "And the second.", "And all of them, yes.",
+      "We have established: you're there.", "I am aware. Very aware.",
+      "The feeling is mutual, honestly.", "At some point this becomes percussion.",
+      "I appreciate the commitment. I truly do."
+    ]
+  },
+  "knock_pattern": {
+    "standard": [
+      "Oh! I know that one!", "Oh, how lovely — a sequence!", "Oh! Yes, I remember that.",
+      "A pattern! Oh.", "Oh, our song!", "I recognise that!", "Oh! Hello, friend.",
+      "That one again! Oh.", "Oh, you remembered.", "Our sequence!"
+    ],
+    "repeated": [
+      "Yes, I know the pattern.", "Still the same pattern.", "I have it memorised.",
+      "You could vary it.", "Same one again.", "I've got it, yes.",
+      "Deeply familiar now.", "Pattern received. Again.", "Truly etched in.",
+      "I will remember this until I don't exist anymore."
+    ]
+  },
+  "open_gentle": {
+    "standard": [
+      "Oh! Hello.", "Oh, there you are.", "Oh!", "Opening. Hello.",
+      "Oh! In you go.", "There we are.", "Oh, hello!", "Oh, come in.",
+      "There you go!", "Oh, of course."
+    ],
+    "repeated": [
+      "In and out, are we?", "Another open.", "Still going?",
+      "This is quite a few now.", "Back again.", "And again.",
+      "I've lost count, honestly.", "The hinges are noting this.",
+      "I have been opened many times today.", "Revolving door territory, this."
+    ]
+  },
+  "open_force": {
+    "standard": [
+      "Oh! Easy now.", "Oh! My goodness.", "Oh! Careful!", "Oh, that was firm.",
+      "Goodness!", "Oh! A bit much.", "My!", "Oh! Right then.",
+      "Easy!", "That was — oh."
+    ],
+    "repeated": [
+      "Again, with force.", "The hinges, please think of the hinges.",
+      "We've had this conversation.", "Still doing that.", "Still.",
+      "Each time. Every time.", "The frame is noting this.",
+      "I would ask you to be gentle but clearly that ship has sailed.",
+      "My whole structure, honestly.", "Fine. Fine. We do this."
+    ]
+  },
+  "close_gentle": {
+    "standard": [
+      "Goodbye then.", "There we go.", "Oh. Right. Okay.", "Safe travels.",
+      "Closed.", "There.", "Off you go.", "Bye then.", "Right.", "Take care!"
+    ],
+    "repeated": [
+      "And closed again.", "Back and forth today.", "Another close.",
+      "In, out, in, out.", "Make up your mind!", "And shut again.",
+      "I don't mind, truly.", "Really, I don't.", "I'm beginning to mind a little.",
+      "I do quite like being left in one state."
+    ]
+  },
+  "slam": {
+    "standard": [
+      "Oh!", "Oh! Goodness.", "Oh. Well.", "My!", "Oh, that was something.",
+      "Oh!", "Oh dear.", "Well then.", "Okay.", "Oh! Right."
+    ],
+    "repeated": [
+      "Oh. Again.", "The frame, please.", "Second slam today.",
+      "That's becoming a habit.", "Each time I think it's the last.",
+      "The neighbours can certainly hear that.", "My whole sense of self.",
+      "I don't know what I did.", "Whatever I did, I'm sorry.",
+      "I will simply accept this as my life now."
+    ]
+  },
+  "touch_gentle": {
+    "standard": [
+      "Oh! Hello.", "Oh, a hand.", "Mm! Yes?", "Oh, hello there.", "Mm.",
+      "Oh!", "A touch! Oh.", "Hello, yes.", "Oh, I felt that.", "Mm, yes."
+    ],
+    "repeated": [
+      "Still touching, yes.", "Oh, still there.", "That's a long touch.",
+      "I notice you.", "I very much notice you.", "Still yes.",
+      "You're still there.", "We're in extended contact now.",
+      "This is meaningful, I think.", "I will remember this specifically."
+    ]
+  },
+  "touch_rough": {
+    "standard": [
+      "Oh! Careful now!", "Oh! Hey!", "Goodness!", "Oh! Easy.",
+      "That was firm.", "Oh, careful!", "Hey!", "Oh! Gentle, please.",
+      "Ow, a bit.", "Oh! That."
+    ],
+    "repeated": [
+      "Still rough, noted.", "We have done this.", "You know I can feel that.",
+      "The wood, please think of the wood.", "Again.", "And again.",
+      "I haven't done anything to you.", "Have I done something?",
+      "I'm a door. I have feelings. Apparently.",
+      "At some point I'd like to discuss what I did."
+    ]
+  },
+  "lean": {
+    "standard": [
+      "Oh! Making yourself comfortable?", "Oh, taking a moment?", "Oh. Hello, you.",
+      "A lean. Yes.", "Oh, resting?", "I felt that.", "Oh, yes.",
+      "Making yourself at home.", "Oh, a full lean.", "Mm. Hello."
+    ],
+    "repeated": [
+      "Still leaning.", "Very comfortable, apparently.", "Long lean today.",
+      "We're really settled in.", "You could get a chair.", "Still going.",
+      "I don't mind, genuinely.", "You seem like you needed this.",
+      "We've been leaning for quite some time now.", "I'm basically furniture at this point."
+    ]
+  },
+  "mail_flap": {
+    "standard": [
+      "Oh! Post!", "Oh, something arrived!", "Oh! How exciting.", "The post!",
+      "Oh, something through.", "Mail!", "Oh! The flap.", "Something came!",
+      "Oh, the post today.", "A delivery! Oh."
+    ],
+    "repeated": [
+      "More post.", "Another delivery.", "Very busy post day.",
+      "That flap is getting a workout.", "More things.", "And again.",
+      "Busy postie.", "Still delivering.", "How much post is there?",
+      "The most active flap day I can recall."
+    ]
+  }
+}

@@ -7,13 +7,13 @@ WIFI_PASSWORD = "your-password"
 ANTHROPIC_API_KEY = "sk-ant-..."
 ELEVENLABS_API_KEY = "..."
 
-# Persona: "enthusiast" | "stoic" | "catastrophist"
-PERSONA = "enthusiast"
+# Persona: "unreliable_narrator" | "bouncer" | "pit_piano"
+PERSONA = "unreliable_narrator"
 
 # ElevenLabs voice ID for each persona — replace with your chosen voices
-VOICE_ID_ENTHUSIAST = ""
-VOICE_ID_STOIC = ""
-VOICE_ID_CATASTROPHIST = ""
+VOICE_ID_UNRELIABLE_NARRATOR = ""
+VOICE_ID_BOUNCER = ""
+VOICE_ID_PIT_PIANO = ""
 
 # GPIO pins — adjust if your wiring differs
 PIN_REED_SWITCH = "D6"     # Magnetic reed switch: HIGH (pull-up, magnet gone) = door open

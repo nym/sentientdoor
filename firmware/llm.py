@@ -89,7 +89,7 @@ class LLMClient:
             raise ValueError("ANTHROPIC_API_KEY is missing from settings.toml")
         self._api_key = api_key
 
-        self._persona = settings.get("PERSONA", "enthusiast")
+        self._persona = settings.get("PERSONA", "unreliable_narrator")
         self._system  = _load_persona_prompt(self._persona)
 
         if session is not None:
