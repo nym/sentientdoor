@@ -73,10 +73,14 @@ class TTSPlayer:
         persona        = settings.get("PERSONA", "unreliable_narrator")
         self._voice_id = settings.get(f"VOICE_ID_{persona.upper()}", "")
 
-        pwr_pin = getattr(board, settings.get("PIN_POWER_ENABLE", "A0"))
-        self._power = digitalio.DigitalInOut(pwr_pin)
-        self._power.direction = digitalio.Direction.OUTPUT
-        self._power.value = False
+        pwr_name = settings.get("PIN_POWER_ENABLE", "")
+        if pwr_name:
+            pwr_pin = getattr(board, pwr_name)
+            self._power = digitalio.DigitalInOut(pwr_pin)
+            self._power.direction = digitalio.Direction.OUTPUT
+            self._power.value = False
+        else:
+            self._power = None
 
         bclk  = getattr(board, settings.get("PIN_I2S_BCLK",  "A0"))
         lrclk = getattr(board, settings.get("PIN_I2S_LRCLK", "A1"))
@@ -196,7 +200,8 @@ class TTSPlayer:
             lights.start_speaking()
         if servo is not None:
             servo.start_speaking()
-        self._power.value = True
+        if self._power is not None:
+            self._power.value = True
         try:
             with open(WAV_PATH, "rb") as f:
                 wav = audiocore.WaveFile(f)
@@ -213,7 +218,8 @@ class TTSPlayer:
         except Exception as e:  # noqa: BLE001
             print(f"TTS playback error: {e}")
         finally:
-            self._power.value = False
+            if self._power is not None:
+                self._power.value = False
             if lights is not None:
                 lights.stop_speaking()
             if servo is not None:

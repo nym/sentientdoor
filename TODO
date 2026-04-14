@@ -1,17 +1,32 @@
 [x] Write /personas prompts — Unreliable Narrator, Bouncer, Ken (and shared_rules)
 
-[ ] Build firmware sensor loop — accelerometer (knocks, slams, leaning, wind), open/closed state, duration tracking
+[x] Get featherwing working
 
-[ ] Implement knock pattern recognition (5–8 note sequences)
+[ ] Get amp working
 
-[ ] Implement proximity/PIR person-detection event + ignored-streak counter
+[ ] Get elevenlabs integration working
 
-[ ] Build stateful LLM context — assemble sensor snapshot (open/closed duration, last contact, streak, touch force, accelerometer samples) before each prompt call
+[ ] Make it talk
 
-[ ] Implement pre-queued response system — door generates pending commentary between events so it is 'ready to go' when disturbed
+[ ] Get sensor sampling to JSON over UDP to nodejs mac mini client
 
-[ ] Implement session memory — grip samples, slam count, ignored visits, frequent knock patterns
+[ ] Websocket to show the json payloads in browser for debug
 
-[ ] Wire up TTS pipeline — LLM response → audio output via Prop-Maker Class D amp + speaker
+[ ] Visualize on the computer with a 3d plot showing the sensors data as waveform graphs or other appropriate visualization method that shows 9dof over time, from the samples coming via udp
 
-[ ] Write /docs — wiring diagram (Feather + Prop-Maker + speaker), mounting notes, enclosure suggestions
+[ ] Setup vector database on mac mini (is there an appropriate one?)
+
+[ ] Emegent labeling with claude assisted conclusions?
+
+[ ] Implement proximity/PIR person-detection sensor
+
+[ ] Implement on device ignored-streak counter (person visits but doesn't interact)
+
+[ ] Build stateful LLM context, add labels to the existing vectors for things like open / closed + time total open, last contact, streak, to aid in context (verify this requiement for feasability)
+
+— assemble sensor snapshot (open/closed duration, last contact, streak, touch force, accelerometer samples) before each prompt call
+
+[x] Implement pre-queued response system — door generates pending commentary between events so it is 'ready to go' when disturbed
+
+
+[ ] Write /docs — wiring diagram (Feather + amp + speaker), mounting notes, enclosure suggestions``````````

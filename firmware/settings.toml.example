@@ -25,13 +25,10 @@ VOICE_ID_KEN = ""
 # GPIO pins — adjust if your wiring differs
 PIN_REED_SWITCH = "D6"     # Magnetic reed switch: HIGH (pull-up, magnet gone) = door open
 PIN_PIR = "D9"             # PIR / proximity sensor: HIGH = person detected
-PIN_POWER_ENABLE = "A0"    # Prop-Maker FeatherWing power enable
+PIN_POWER_ENABLE = ""      # Prop-Maker FeatherWing amp enable; leave blank if not fitted
 
-# I2S audio pins — Prop-Maker FeatherWing on Feather ESP32-S3
-# VERIFY these against Adafruit's pinout diagram for your specific board revision.
-# The Prop-Maker FeatherWing maps its audio header to whatever I2S-capable pins
-# the Feather exposes. Common assignments for the ESP32-S3 Feather are A0/A1/A2
-# but they may differ on older or newer board revisions.
+# I2S audio pins — DFRobot MAX98357 I2S Amplifier Module
+# Wire: BCLK→A0, LRC→A1, DIN→A2 on the Feather ESP32-S3.
 PIN_I2S_BCLK  = "A0"
 PIN_I2S_LRCLK = "A1"
 PIN_I2S_DATA  = "A2"
